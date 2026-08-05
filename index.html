@@ -3,74 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <title>Rumah Belajar Lestari</title>
-  <!-- Font & Icon -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background:#f8fafc; margin:0; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:#f8fafc; margin:0; }
     .header-bg { background:linear-gradient(135deg,#0f172a,#0f2b1d); color:white; padding:20px; text-align:center; }
     .container { max-width:900px; margin:20px auto; padding:15px; }
-    .card { background:white; border-radius:12px; padding:15px; margin-bottom:15px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
-    .btn { background:#10b981; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer; }
+    .card { background:white; border-radius:12px; padding:15px; margin-bottom:15px; box-shadow:0 4px 10px rgba(0,0,0,0.05); transition:.2s; }
+    .card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,0.1); }
+    .btn { background:#10b981; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer; transition:.2s; }
     .btn:hover { background:#059669; }
     #toast { position:fixed; bottom:20px; right:20px; background:#333; color:white; padding:10px 15px; border-radius:8px; display:none; }
+    .view-section { display:none; }
+    .view-section.active { display:block; }
   </style>
 </head>
 <body>
   <div class="header-bg">
     <h1>Rumah Belajar Lestari</h1>
     <p>Portal Edukasi Anak</p>
+    <button class="btn" onclick="showView('public')">Public</button>
+    <button class="btn" onclick="showView('wali')">Wali Murid</button>
+    <button class="btn" onclick="showView('admin')">Admin</button>
   </div>
 
   <div class="container">
-    <!-- Kamus Mini -->
-    <div class="card">
-      <h3><i class="fa-solid fa-book"></i> Kamus Mini</h3>
-      <input type="text" id="searchKamus" placeholder="Cari kata..." onkeyup="cariKamus()">
-      <div id="kamusResult" style="margin-top:10px;">💡 Ketik kata di atas untuk memulai.</div>
+    <!-- PUBLIC VIEW -->
+    <div id="viewPublic" class="view-section active">
+      <div class="card">
+        <h3><i class="fa-solid fa-book"></i> Kamus Mini</h3>
+        <input type="text" id="searchKamus" placeholder="Cari kata..." onkeyup="cariKamus()">
+        <div id="kamusResult" style="margin-top:10px;">💡 Ketik kata di atas untuk memulai.</div>
+      </div>
+      <div class="card">
+        <h3><i class="fa-solid fa-gamepad"></i> Game Asah Otak</h3>
+        <p>Berapakah hasil dari 5 + 3 ?</p>
+        <input type="number" id="jawabGame" placeholder="Jawabanmu...">
+        <button class="btn" onclick="cekJawaban()">Cek</button>
+        <div id="gameResult" style="margin-top:10px;"></div>
+      </div>
+      <div class="card">
+        <h3><i class="fa-solid fa-chart-line"></i> Grafik Presensi</h3>
+        <canvas id="chartPresensi" height="100"></canvas>
+      </div>
     </div>
 
-    <!-- Game Mini -->
-    <div class="card">
-      <h3><i class="fa-solid fa-gamepad"></i> Game Asah Otak</h3>
-      <p>Berapakah hasil dari 5 + 3 ?</p>
-      <input type="number" id="jawabGame" placeholder="Jawabanmu...">
-      <button class="btn" onclick="cekJawaban()">Cek</button>
-      <div id="gameResult" style="margin-top:10px;"></div>
+    <!-- WALI MURID VIEW -->
+    <div id="viewWali" class="view-section">
+      <div class="card">
+        <h3><i class="fa-solid fa-user"></i> Jurnal Anak</h3>
+        <p>Nama Anak: <b id="waliNama">Budi</b></p>
+        <p>Cita-cita: <b id="waliImpian">Dokter</b></p>
+        <p>Pesan: <i id="waliPesan">Belajar rajin ya!</i></p>
+      </div>
+      <div class="card">
+        <h3><i class="fa-solid fa-clock"></i> Riwayat Presensi</h3>
+        <ul id="waliPresensiList">
+          <li>Senin - Hadir</li>
+          <li>Selasa - Hadir</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><i class="fa-solid fa-wallet"></i> Administrasi</h3>
+        <p>Total: Rp 150.000</p>
+        <p>Titipan: Rp 100.000</p>
+        <p>Sisa: Rp 50.000</p>
+      </div>
     </div>
 
-    <!-- Grafik Presensi -->
-    <div class="card">
-      <h3><i class="fa-solid fa-chart-line"></i> Grafik Presensi</h3>
-      <canvas id="chartPresensi" height="100"></canvas>
+    <!-- ADMIN VIEW -->
+    <div id="viewAdmin" class="view-section">
+      <div class="card">
+        <h3><i class="fa-solid fa-user-check"></i> Presensi Cepat</h3>
+        <input type="text" id="admNama" placeholder="Nama Murid">
+        <input type="text" id="admCatatan" placeholder="Catatan Aktivitas">
+        <button class="btn" onclick="simpanPresensi()">Simpan Presensi</button>
+      </div>
+      <div class="card">
+        <h3><i class="fa-solid fa-user-plus"></i> Tambah Murid</h3>
+        <input type="text" id="addNama" placeholder="Nama Murid">
+        <input type="password" id="addPin" placeholder="PIN (4 digit)">
+        <input type="number" id="addTarif" placeholder="Tarif per hari">
+        <input type="text" id="addImpian" placeholder="Cita-cita">
+        <button class="btn" onclick="tambahMurid()">Tambah</button>
+      </div>
     </div>
   </div>
 
-  <!-- Toast Notification -->
   <div id="toast"></div>
 
   <script>
-    // Kamus Mini
-    const dictionary = { "kucing":"Cat 🐱", "buku":"Book 📖", "rumah":"House 🏠", "pensil":"Pencil ✏️" };
-    function cariKamus(){
-      const input = document.getElementById('searchKamus').value.toLowerCase().trim();
-      const res = document.getElementById('kamusResult');
-      if(!input){ res.innerHTML="💡 Ketik kata di atas untuk memulai."; return; }
-      res.innerHTML = dictionary[input] ? `Terjemahan: <b style="color:green;">${dictionary[input]}</b>` : "❌ Kata belum ditemukan.";
+    // Switch view
+    function showView(view){
+      document.querySelectorAll('.view-section').forEach(el=>el.classList.remove('active'));
+      if(view==='public') document.getElementById('viewPublic').classList.add('active');
+      if(view==='wali') document.getElementById('viewWali').classList.add('active');
+      if(view==='admin') document.getElementById('viewAdmin').classList.add('active');
     }
 
-    // Game Mini
+    // Kamus
+    const dictionary = { "kucing":"Cat 🐱","buku":"Book 📖","rumah":"House 🏠","pensil":"Pencil ✏️" };
+    function cariKamus(){
+      const input=document.getElementById('searchKamus').value.toLowerCase().trim();
+      const res=document.getElementById('kamusResult');
+      if(!input){ res.innerHTML="💡 Ketik kata di atas untuk memulai."; return; }
+      res.innerHTML=dictionary[input]?`Terjemahan: <b style="color:green;">${dictionary[input]}</b>`:"❌ Kata belum ditemukan.";
+    }
+
+    // Game
     function cekJawaban(){
-      const val = parseInt(document.getElementById('jawabGame').value);
-      const res = document.getElementById('gameResult');
+      const val=parseInt(document.getElementById('jawabGame').value);
+      const res=document.getElementById('gameResult');
       if(val===8){ showToast("🎉 Benar sekali!"); res.innerHTML="<span style='color:green;'>Benar!</span>"; }
       else { showToast("❌ Coba lagi ya!"); res.innerHTML="<span style='color:red;'>Salah!</span>"; }
     }
 
-    // Toast Notification
+    // Toast
     function showToast(msg){
       const toast=document.getElementById('toast');
       toast.textContent=msg;
@@ -78,20 +127,14 @@
       setTimeout(()=>toast.style.display="none",3000);
     }
 
-    // Grafik Presensi dengan Chart.js
-    const presensiData = [5, 7, 3, 8, 6]; // contoh data jumlah sesi per minggu
-    const ctx = document.getElementById('chartPresensi').getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Minggu 1','Minggu 2','Minggu 3','Minggu 4','Minggu 5'],
-        datasets: [{
-          label: 'Jumlah Presensi',
-          data: presensiData,
-          backgroundColor: '#10b981'
-        }]
-      }
-    });
+    // Grafik Presensi
+    const presensiData=[5,7,3,8,6];
+    const ctx=document.getElementById('chartPresensi').getContext('2d');
+    new Chart(ctx,{type:'bar',data:{labels:['Minggu 1','Minggu 2','Minggu 3','Minggu 4','Minggu 5'],datasets:[{label:'Jumlah Presensi',data:presensiData,backgroundColor:'#10b981'}]}});
+
+    // Admin actions (dummy)
+    function simpanPresensi(){ showToast("Presensi tersimpan!"); }
+    function tambahMurid(){ showToast("Murid baru ditambahkan!"); }
   </script>
 </body>
 </html>
