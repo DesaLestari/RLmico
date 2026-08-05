@@ -11,14 +11,14 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Header & Navigation -->
   <header class="header-bg">
     <nav class="navbar">
       <div class="brand"><i class="fa-solid fa-graduation-cap"></i> Rubel Lestari Friendship</div>
       <ul class="nav-links">
-        <li><a onclick="showView('public')"><i class="fa-solid fa-house"></i> Info & Profil</a></li>
+        <li><a onclick="showView('public')"><i class="fa-solid fa-house"></i> Beranda</a></li>
         <li><a onclick="openModal('modalWali')"><i class="fa-solid fa-user-check"></i> Wali Murid</a></li>
-        <li><a onclick="openModal('modalAdmin')"><i class="fa-solid fa-user-shield"></i> Admin</a></li>
+        <li><a onclick="openModal('modalAdmin')"><i class="fa-solid fa-user-shield"></i> Pengelola</a></li>
       </ul>
     </nav>
     <div class="hero">
@@ -32,81 +32,98 @@
     <!-- 1. PUBLIC VIEW -->
     <section id="viewPublic" class="view-section active">
       <div class="stats-grid">
-        <div class="stat-card"><h2 id="pubTotalMurid">0</h2><p>Siswa Aktif</p></div>
-        <div class="stat-card"><h2 id="pubTotalPresensi">0</h2><p>Total Presensi</p></div>
+        <div class="stat-card">
+          <h2 id="pubTotalMurid">0</h2>
+          <p>Siswa Aktif</p>
+        </div>
+        <div class="stat-card">
+          <h2 id="pubTotalPresensi">0</h2>
+          <p>Total Sesi Presensi</p>
+        </div>
       </div>
+
       <div class="card">
-        <h3><i class="fa-solid fa-book"></i> Kamus Mini</h3>
-        <input type="text" id="searchKamus" placeholder="Cari kata (contoh: kucing, buku)..." onkeyup="cariKamus()">
-        <div id="kamusResult" style="margin-top:10px;">💡 Ketik kata di atas untuk memulai.</div>
+        <h3><i class="fa-solid fa-book" style="color:var(--primary);"></i> Kamus Mini Edukasi</h3>
+        <input type="text" id="searchKamus" placeholder="Cari kata (contoh: kucing, buku, rumah)..." onkeyup="cariKamus()">
+        <div id="kamusResult" style="margin-top:12px; font-weight:600;">💡 Ketik kata di atas untuk memulai pencarian.</div>
       </div>
+
       <div class="card">
-        <h3><i class="fa-solid fa-gamepad"></i> Game Asah Otak</h3>
-        <p>Berapakah hasil dari 5 + 3 ?</p>
+        <h3><i class="fa-solid fa-gamepad" style="color:var(--accent);"></i> Game Asah Otak</h3>
+        <p style="margin: 4px 0 12px 0;">Berapakah hasil dari <b>5 + 3</b> ?</p>
         <input type="number" id="jawabGame" placeholder="Jawabanmu...">
-        <button class="btn" onclick="cekJawaban()">Cek Jawaban</button>
-        <div id="gameResult" style="margin-top:10px;"></div>
+        <button class="btn btn-primary" onclick="cekJawaban()">Cek Jawaban</button>
+        <div id="gameResult" style="margin-top:10px; font-weight:bold;"></div>
       </div>
+
       <div class="card">
-        <h3><i class="fa-solid fa-chart-line"></i> Grafik Presensi Bulanan</h3>
+        <h3><i class="fa-solid fa-chart-line" style="color:var(--secondary);"></i> Ringkasan Presensi Bulanan</h3>
         <canvas id="chartPresensi" height="100"></canvas>
       </div>
     </section>
 
     <!-- 2. WALI MURID VIEW -->
     <section id="viewWali" class="view-section">
-      <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
-        <h2 style="margin:0;"><i class="fa-solid fa-user-large"></i> Jurnal Wali Murid</h2>
-        <button class="btn btn-danger" onclick="logoutWali()" style="width: auto; margin:0;">Keluar</button>
+      <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <h2 style="margin:0; font-size: 1.3rem;"><i class="fa-solid fa-user-large"></i> Jurnal Perkembangan Anak</h2>
+        <button class="btn btn-danger" onclick="logoutWali()" style="width: auto; margin:0; padding: 8px 16px;">Keluar</button>
       </div>
+
       <div class="card">
-        <h3><i class="fa-solid fa-id-card"></i> Profil Anak</h3>
-        <p>Nama Anak: <b id="waliNama">-</b></p>
-        <p>Cita-cita: <b id="waliImpian">-</b></p>
-        <p>Pesan Pengajar: <i id="waliPesan">-</i></p>
+        <h3><i class="fa-solid fa-id-card" style="color:var(--primary);"></i> Data Profil</h3>
+        <p style="margin: 6px 0;">Nama Anak: <b id="waliNama">-</b></p>
+        <p style="margin: 6px 0;">Cita-cita: <b id="waliImpian" style="color:var(--secondary);">-</b></p>
+        <p style="margin: 6px 0;">Pesan Pengajar: <i id="waliPesan">-</i></p>
       </div>
+
       <div class="card">
-        <h3><i class="fa-solid fa-wallet"></i> Rincian Administrasi</h3>
-        <p id="waliSesiCount">Sesi Terjalani: 0</p>
-        <p>Total Biaya: <b id="waliTotal">Rp 0</b></p>
-        <p>Titipan/DP: <b id="waliTitipan" style="color:green;">Rp 0</b></p>
-        <p>Sisa Tagihan: <b id="waliSisa" style="color:red;">Rp 0</b></p>
+        <h3><i class="fa-solid fa-wallet" style="color:var(--accent);"></i> Transparansi Administrasi</h3>
+        <p id="waliSesiCount" style="margin: 6px 0;">Sesi Terjalani: 0 Kali</p>
+        <p style="margin: 6px 0;">Total Biaya: <b id="waliTotal">Rp 0</b></p>
+        <p style="margin: 6px 0;">Titipan / DP: <b id="waliTitipan" style="color:green;">Rp 0</b></p>
+        <p style="margin: 6px 0;">Sisa Tagihan: <b id="waliSisa" style="color:red;">Rp 0</b></p>
       </div>
+
       <div class="card">
-        <h3><i class="fa-solid fa-clock-rotate-left"></i> Catatan & Presensi Activity</h3>
-        <div id="waliPresensiList">Memuat data presensi...</div>
+        <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--secondary);"></i> Timeline Kegiatan & Presensi</h3>
+        <div id="waliPresensiList">Memuat catatan presensi...</div>
       </div>
     </section>
 
     <!-- 3. ADMIN VIEW -->
     <section id="viewAdmin" class="view-section">
-      <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
-        <h2 style="margin:0;"><i class="fa-solid fa-user-shield"></i> Panel Pengelola Admin</h2>
-        <button class="btn btn-danger" onclick="logoutAdmin()" style="width: auto; margin:0;">Keluar Admin</button>
+      <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <h2 style="margin:0; font-size: 1.3rem;"><i class="fa-solid fa-user-shield"></i> Panel Pengelola Admin</h2>
+        <button class="btn btn-danger" onclick="logoutAdmin()" style="width: auto; margin:0; padding: 8px 16px;">Keluar Admin</button>
       </div>
+
       <div class="card">
-        <h3><i class="fa-solid fa-pen-to-square"></i> Input Presensi Murid</h3>
+        <h3><i class="fa-solid fa-pen-to-square" style="color:var(--primary);"></i> Input Presensi Murid</h3>
         <label>Pilih Murid:</label>
         <select id="admAbsenMurid">
           <option value="">-- Pilih Nama Murid --</option>
         </select>
         
-        <label>Catatan Kegiatan:</label>
-        <input type="text" id="admAbsenNote" placeholder="Misal: Membaca hal 10 & Latihan Perkalian">
+        <label>Catatan Aktivitas / Materi Belajar:</label>
+        <input type="text" id="admAbsenNote" placeholder="Misal: Latihan perkalian & membaca hal 12">
         
-        <label>Foto Kegiatan (Opsional):</label>
+        <label>Foto Kegiatan (Kamera / Galeri):</label>
         <input type="file" id="admAbsenFoto" accept="image/*" capture="environment" onchange="previewImage(this)">
-        <img id="imgPreview" style="display:none; width:100%; max-height:180px; object-fit:cover; margin-top:10px; border-radius:8px;">
+        <img id="imgPreview" style="display:none; width:100%; max-height:200px; object-fit:cover; margin-top:12px; border-radius:8px;">
 
-        <button class="btn" onclick="simpanPresensiAdmin()">Simpan Presensi</button>
+        <button class="btn btn-primary" onclick="simpanPresensiAdmin()">Simpan Presensi</button>
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-user-plus"></i> Tambah Murid Baru</h3>
-        <input type="text" id="addNama" placeholder="Nama Lengkap Murid">
-        <input type="password" id="addPin" placeholder="PIN Rahasia Wali (4 Digit)">
-        <input type="number" id="addTarif" placeholder="Tarif Per Sesi (Rp)">
-        <input type="text" id="addImpian" placeholder="Cita-cita Anak">
+        <h3><i class="fa-solid fa-user-plus" style="color:var(--secondary);"></i> Pendaftaran Murid Baru</h3>
+        <label>Nama Lengkap Murid:</label>
+        <input type="text" id="addNama" placeholder="Nama Murid">
+        <label>PIN Rahasia Wali (4 Digit):</label>
+        <input type="password" id="addPin" placeholder="Contoh: 1234">
+        <label>Tarif per Sesi (Rp):</label>
+        <input type="number" id="addTarif" placeholder="50000">
+        <label>Cita-cita / Impian Anak:</label>
+        <input type="text" id="addImpian" placeholder="Contoh: Dokter / Astronot">
         <button class="btn" onclick="tambahMuridAdmin()">Daftarkan Murid</button>
       </div>
     </section>
@@ -117,14 +134,14 @@
   <div id="modalWali" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalWali')">&times;</span>
-      <h3><i class="fa-solid fa-lock"></i> Login Wali Murid</h3>
+      <h3 style="margin-top:0;"><i class="fa-solid fa-lock" style="color:var(--primary);"></i> Login Wali Murid</h3>
       <label>Pilih Nama Anak:</label>
       <select id="selectMuridWali">
         <option value="">-- Pilih Anak --</option>
       </select>
-      <label>Masukkan PIN Rahasia:</label>
-      <input type="password" id="pinWali" placeholder="PIN Rahasia">
-      <button class="btn" onclick="loginWali()">Masuk Jurnal</button>
+      <label>PIN Rahasia Wali:</label>
+      <input type="password" id="pinWali" placeholder="Masukkan PIN">
+      <button class="btn btn-primary" onclick="loginWali()">Masuk Portal Wali</button>
     </div>
   </div>
 
@@ -132,18 +149,19 @@
   <div id="modalAdmin" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalAdmin')">&times;</span>
-      <h3><i class="fa-solid fa-shield-halved"></i> Akses Admin</h3>
-      <label>Masukkan Password Admin:</label>
-      <input type="password" id="passAdmin" placeholder="Password Admin">
-      <button class="btn" onclick="loginAdmin()">Masuk Panel</button>
+      <h3 style="margin-top:0;"><i class="fa-solid fa-shield-halved" style="color:var(--accent);"></i> Akses Pengelola</h3>
+      <label>Password Admin:</label>
+      <input type="password" id="passAdmin" placeholder="Masukkan Password">
+      <button class="btn btn-primary" onclick="loginAdmin()">Masuk Panel Admin</button>
     </div>
   </div>
 
+  <!-- Toast Notification -->
   <div id="toast"></div>
 
   <script>
-    // URL WEB APP APPS SCRIPT ANDA
-    const API_URL = "https://script.google.com/macros/s/AKfycbyFdSX9QrkpEwu9Yoc2_QKHg8uAGYKsOtwUaeaoiD6MxFfBDoSFFu3t62JmkalBOzsxwQ/exec"; 
+    // ⚠️ GANTI DENGAN URL DEPLOYMENT GOOGLE APPS SCRIPT ANDA
+    const API_URL = "https://script.google.com/macros/s/AKfycbyO9e6rIQ3ddGmp8XKs3GZRnaqBgG-MiL3wjCatnpD1ZBkn-PW1QT5mT2kQ28pSNhUKIQ/exec"; 
 
     // STATE LOKAL
     let dbData = { murid: {}, presensi: [] };
@@ -166,7 +184,7 @@
         
         if (currentWaliKey) renderJurnalWali(currentWaliKey);
       } catch(e) {
-        console.error("Gagal memuat data dari server:", e);
+        console.error("Gagal sinkronisasi data:", e);
       }
     }
 
@@ -193,7 +211,7 @@
       }
     }
 
-    // SWITCH VIEW
+    // SWITCH VIEW NAVIGATION
     function showView(viewName) {
       document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
       
@@ -212,7 +230,7 @@
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-    // LOGIN AUTHENTICATION
+    // LOGIN / LOGOUT AUTHENTICATION
     function loginWali() {
       const key = document.getElementById('selectMuridWali').value;
       const pin = document.getElementById('pinWali').value;
@@ -231,17 +249,18 @@
 
     function logoutWali() {
       currentWaliKey = null;
+      document.getElementById('pinWali').value = "";
       showView('public');
-      showToast("Berhasil Keluar");
+      showToast("Berhasil Keluar Portal Wali");
     }
 
     function loginAdmin() {
       const pass = document.getElementById('passAdmin').value;
-      if (pass === "1234") { // Ubah password default admin di sini
+      if (pass === "1234") { // Password default admin
         isAdminLoggedIn = true;
         closeModal('modalAdmin');
         showView('admin');
-        showToast("Login Admin Berhasil!");
+        showToast("Login Pengelola Berhasil!");
       } else {
         alert("Password Admin Salah!");
       }
@@ -249,6 +268,7 @@
 
     function logoutAdmin() {
       isAdminLoggedIn = false;
+      document.getElementById('passAdmin').value = "";
       showView('public');
       showToast("Keluar dari Panel Admin");
     }
@@ -286,11 +306,11 @@
         userPresensi.forEach(p => {
           const div = document.createElement('div');
           div.className = 'timeline-item';
-          let htmlFoto = p.foto ? `<img src="${p.foto}" class="img-presensi" alt="Foto">` : '';
+          let htmlFoto = p.foto ? `<img src="${p.foto}" class="img-presensi" alt="Foto Kegiatan">` : '';
           
           div.innerHTML = `
             <span class="badge-date">⏰ ${p.waktu}</span>
-            <div style="font-weight:bold; font-size:13px; margin-top:2px;">${p.catatan}</div>
+            <div style="font-weight:bold; font-size:14px; margin-top:4px;">${p.catatan}</div>
             ${htmlFoto}
           `;
           list.appendChild(div);
@@ -298,7 +318,7 @@
       }
     }
 
-    // INPUT PRESENSI DENGAN OPTIMISTIC UPDATE
+    // INPUT PRESENSI ADMIN (Dengan Optimistic Update)
     async function simpanPresensiAdmin() {
       const key = document.getElementById('admAbsenMurid').value;
       const note = document.getElementById('admAbsenNote').value || "Hadir Sesi Belajar";
@@ -315,24 +335,25 @@
         foto: currentFotoBase64
       };
 
-      // Update instan lokal
+      // 1. Update instan ke tampilan lokal
       if (!dbData.presensi) dbData.presensi = [];
       dbData.presensi.push(presensiBaru);
 
       if (currentWaliKey && String(currentWaliKey) === String(key)) {
         renderJurnalWali(currentWaliKey);
       }
+      updatePublicStats();
 
-      // Reset Input Form
+      // Reset Form Input
       document.getElementById('admAbsenNote').value = "";
       document.getElementById('admAbsenFoto').value = "";
       document.getElementById('imgPreview').style.display = "none";
       const fotoKirim = currentFotoBase64;
       currentFotoBase64 = "";
 
-      showToast("Presensi Berhasil Ditambahkan!");
+      showToast("Presensi Berhasil Dicatat!");
 
-      // Kirim ke Backend Google Apps Script
+      // 2. Transmisi background ke Google Sheets
       try {
         await fetch(API_URL, {
           method: 'POST',
@@ -340,11 +361,11 @@
         });
         loadData();
       } catch(e) {
-        console.error("Gagal sinkronisasi:", e);
+        console.error("Gagal sinkronisasi background:", e);
       }
     }
 
-    // TAMBAH MURID BARU
+    // TAMBAH MURID BARU ADMIN
     async function tambahMuridAdmin() {
       const nama = document.getElementById('addNama').value;
       const pin = document.getElementById('addPin').value;
@@ -353,7 +374,7 @@
 
       if (!nama || !pin) { alert("Nama dan PIN wajib diisi!"); return; }
 
-      showToast("Menambahkan murid baru...");
+      showToast("Mendaftarkan murid baru...");
 
       try {
         await fetch(API_URL, {
@@ -373,7 +394,7 @@
       }
     }
 
-    // HELPER: PREVIEW FOTO
+    // HELPER: PREVIEW & KOMPRESI FOTO
     function previewImage(input) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -387,20 +408,23 @@
       }
     }
 
-    // KAMUS & GAME
-    const dictionary = { "kucing":"Cat 🐱","buku":"Book 📖","rumah":"House 🏠","pensil":"Pencil ✏️" };
+    // KAMUS & GAME FEATURE
+    const dictionary = { 
+      "kucing":"Cat 🐱", "buku":"Book 📖", "rumah":"House 🏠", 
+      "pensil":"Pencil ✏️", "sekolah":"School 🏫", "guru":"Teacher 🧑‍🏫" 
+    };
     function cariKamus(){
       const input=document.getElementById('searchKamus').value.toLowerCase().trim();
       const res=document.getElementById('kamusResult');
-      if(!input){ res.innerHTML="💡 Ketik kata di atas untuk memulai."; return; }
-      res.innerHTML=dictionary[input]?`Terjemahan: <b style="color:green;">${dictionary[input]}</b>`:"❌ Kata belum ditemukan.";
+      if(!input){ res.innerHTML="💡 Ketik kata di atas untuk memulai pencarian."; return; }
+      res.innerHTML=dictionary[input]?`Terjemahan: <b style="color:green;">${dictionary[input]}</b>`:"❌ Kata belum ditemukan dalam kamus mini.";
     }
 
     function cekJawaban(){
       const val=parseInt(document.getElementById('jawabGame').value);
       const res=document.getElementById('gameResult');
-      if(val===8){ showToast("🎉 Benar sekali!"); res.innerHTML="<span style='color:green;'>Benar!</span>"; }
-      else { showToast("❌ Coba lagi ya!"); res.innerHTML="<span style='color:red;'>Salah!</span>"; }
+      if(val===8){ showToast("🎉 Jawabanmu Benar!"); res.innerHTML="<span style='color:green;'>Benar Tepat!</span>"; }
+      else { showToast("❌ Coba hitung lagi ya!"); res.innerHTML="<span style='color:red;'>Kurang Tepat!</span>"; }
     }
 
     function showToast(msg){
@@ -410,9 +434,21 @@
       setTimeout(()=>toast.style.display="none",3000);
     }
 
-    // CHART
-    const ctx=document.getElementById('chartPresensi').getContext('2d');
-    new Chart(ctx,{type:'bar',data:{labels:['Minggu 1','Minggu 2','Minggu 3','Minggu 4'],datasets:[{label:'Sesi Presensi',data:[12,18,15,22],backgroundColor:'#10b981'}]}});
+    // GRAPH DATA VISUALIZATION
+    const ctx = document.getElementById('chartPresensi').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'],
+        datasets: [{
+          label: 'Total Sesi',
+          data: [15, 22, 18, 26],
+          backgroundColor: '#10b981',
+          borderRadius: 6
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } } }
+    });
   </script>
 </body>
 </html>
