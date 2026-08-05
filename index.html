@@ -29,48 +29,60 @@
 
   <div class="container">
     
-    <!-- 1. BERANDA / PUBLIC VIEW -->
+    <!-- 1. BERANDA / PUBLIC VIEW (DESAIN BARU) -->
     <section id="viewPublic" class="view-section active">
-      <!-- Banner Pengumuman dari Admin -->
-      <div id="pubNoticeBox" class="notice-box" style="display:none;">
-        <i class="fa-solid fa-bullhorn" style="color:var(--primary);"></i> 
-        <span id="pubNoticeText">Memuat informasi...</span>
+      
+      <!-- BANNER PENGUMUMAN BESAR & MENCOLOK -->
+      <div id="pubNoticeBox" class="announcement-banner" style="display:none;">
+        <div class="announcement-header">
+          <i class="fa-solid fa-bullhorn fa-bounce" style="font-size:1.4rem;"></i>
+          <span>PENGUMUMAN PENTING</span>
+        </div>
+        <div id="pubNoticeText" class="announcement-body">
+          Memuat informasi terbaru...
+        </div>
       </div>
 
+      <!-- PROFIL & DESKRIPSI BIMBEL -->
       <div class="card">
-        <h3><i class="fa-solid fa-chart-simple" style="color:var(--primary);"></i> Ringkasan Statistik</h3>
-        <div style="display:flex; gap:20px; text-align:center;">
-          <div style="flex:1; background:#f8fafc; padding:12px; border-radius:8px;">
-            <h2 id="pubTotalMurid" style="margin:0; color:var(--primary);">0</h2>
-            <small style="color:var(--text-muted);">Siswa Aktif</small>
+        <h3><i class="fa-solid fa-house-chimney-heart"></i> Rubel Lestari Friendship 🏡✨</h3>
+        
+        <div class="profile-quote">
+          <b>"Bosan melihat anak stres karena tekanan nilai di sekolah?"</b><br>
+          Di <b>Rubel Lestari Friendship</b>, kami percaya bahwa setiap anak memiliki kecepatan belajarnya masing-masing. Kami tidak menuntut mereka jadi yang tercepat, tapi kami menemani mereka menjadi yang terbaik.
+        </div>
+
+        <p style="line-height:1.6; color:var(--text-dark); margin-bottom:16px;">
+          Sebuah rumah belajar dengan pendekatan bersahabat (<i>friendship</i>) yang menghargai setiap proses tumbuh kembang anak. Kami tidak hanya mengejar angka, tapi mendidik karakter anak agar mampu belajar secara mandiri dengan bahagia.
+        </p>
+
+        <div style="background:#f8fafc; padding:14px; border-radius:10px; font-size:0.9rem; border:1px solid #e2e8f0;">
+          <div style="margin-bottom:6px;"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> <b>Lokasi:</b> [Isi Alamat / Desa Lestari]</div>
+          <div><i class="fa-brands fa-whatsapp" style="color:#16a34a; font-weight:bold;"></i> <b>Konsultasi & Uji Coba Gratis:</b> <a href="https://wa.me/6281234567890" target="_blank" style="color:var(--primary); font-weight:bold; text-decoration:none;">Hubungi Kami Via WhatsApp</a></div>
+        </div>
+      </div>
+
+      <!-- STATISTIK RINGKAS -->
+      <div class="card">
+        <h3><i class="fa-solid fa-chart-simple"></i> Ringkasan Aktivitas</h3>
+        <div style="display:flex; gap:16px; text-align:center;">
+          <div style="flex:1; background:var(--primary-light); padding:16px; border-radius:10px;">
+            <h2 id="pubTotalMurid" style="margin:0; color:var(--primary); font-size:1.8rem;">0</h2>
+            <small style="color:var(--text-muted); font-weight:700;">Siswa Aktif</small>
           </div>
-          <div style="flex:1; background:#f8fafc; padding:12px; border-radius:8px;">
-            <h2 id="pubTotalPresensi" style="margin:0; color:var(--secondary);">0</h2>
-            <small style="color:var(--text-muted);">Sesi Pembelajaran</small>
+          <div style="flex:1; background:#fef3c7; padding:16px; border-radius:10px;">
+            <h2 id="pubTotalPresensi" style="margin:0; color:var(--accent); font-size:1.8rem;">0</h2>
+            <small style="color:#78350f; font-weight:700;">Sesi Pembelajaran</small>
           </div>
         </div>
       </div>
 
+      <!-- GRAFIK PRESENSI -->
       <div class="card">
-        <h3><i class="fa-solid fa-book" style="color:var(--primary);"></i> Kamus Mini Edukasi</h3>
-        <input type="text" id="searchKamus" placeholder="Cari kata (contoh: kucing, buku, rumah)..." onkeyup="cariKamus()">
-        <div id="kamusResult" style="margin-top:10px; font-weight:600;">💡 Ketik kata di atas untuk mencari.</div>
-      </div>
-
-      <div class="card">
-        <h3><i class="fa-solid fa-gamepad" style="color:var(--accent);"></i> Game Asah Otak</h3>
-        <p style="margin: 4px 0 8px 0;">Berapakah hasil dari <b>5 + 3</b> ?</p>
-        <div style="display:flex; gap:10px;">
-          <input type="number" id="jawabGame" placeholder="Jawaban..." style="max-width:150px;">
-          <button class="btn btn-warning" onclick="cekJawaban()">Cek Jawaban</button>
-        </div>
-        <div id="gameResult" style="margin-top:8px; font-weight:bold;"></div>
-      </div>
-
-      <div class="card">
-        <h3><i class="fa-solid fa-chart-line" style="color:var(--secondary);"></i> Grafik Presensi Bulanan</h3>
+        <h3><i class="fa-solid fa-chart-column"></i> Kehadiran Pembelajaran Bulanan</h3>
         <canvas id="chartPresensi" height="100"></canvas>
       </div>
+
     </section>
 
     <!-- 2. WALI MURID PORTAL VIEW -->
