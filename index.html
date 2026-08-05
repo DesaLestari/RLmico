@@ -247,34 +247,69 @@
 
     <!-- 2. WALI MURID PORTAL VIEW -->
     <section id="viewWali" class="view-section">
-      <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="margin:0;"><i class="fa-solid fa-user-large"></i> Portal Wali Murid</h2>
-        <button class="btn btn-danger" onclick="logoutWali()">Keluar</button>
+      <div class="card" style="display:flex; justify-content:space-between; align-items:center; background: #2d5a27; color: white;">
+        <div>
+          <h2 style="margin:0; font-size: 1.2rem; color: white;"><i class="fa-solid fa-heart"></i> Portal Wali Murid</h2>
+          <small style="opacity: 0.9;">Rumah Belajar Lestari</small>
+        </div>
+        <button class="btn btn-danger" onclick="logoutWali()" style="font-size: 0.8rem; padding: 6px 12px;">Keluar</button>
       </div>
 
+      <!-- BANNER PENGUMUMAN -->
       <div id="waliNoticeBox" class="announcement-banner" style="display:none; margin-bottom:16px;">
-        <div class="announcement-header"><i class="fa-solid fa-bullhorn"></i> PENGUMUMAN</div>
+        <div class="announcement-header"><i class="fa-solid fa-bullhorn"></i> INFO DARI PENGELOLA</div>
         <div id="waliNoticeText" class="announcement-body"></div>
       </div>
 
+      <!-- PROFIL & CATATAN PENGAJAR -->
       <div class="card">
-        <h3><i class="fa-solid fa-address-card"></i> Profil & Catatan Pengajar</h3>
-        <p style="margin:4px 0;">Nama Anak: <b id="waliNama">-</b></p>
-        <p style="margin:4px 0;">Cita-cita: <b id="waliImpian" style="color:var(--secondary);">-</b></p>
-        <p style="margin:4px 0;">Catatan Khusus: <i id="waliPesan">-</i></p>
+        <h3><i class="fa-solid fa-child" style="color: #2d5a27;"></i> Profil & Catatan Ananda</h3>
+        <p style="margin:6px 0;">Nama Anak: <b id="waliNama" style="font-size: 1.1rem; color: #2d5a27;">-</b></p>
+        <p style="margin:6px 0;">Cita-cita Anak: <b id="waliImpian" style="color: #d97706;">-</b></p>
+        
+        <div style="background: #f0fdf4; border-left: 4px solid #2d5a27; padding: 10px 12px; margin-top: 10px; border-radius: 0 8px 8px 0;">
+          <small style="color: #166534; font-weight: bold;"><i class="fa-solid fa-comment-dots"></i> Catatan Kasih Pengajar:</small>
+          <div id="waliPesan" style="font-style: italic; color: #334155; margin-top: 4px;">"-"</div>
+        </div>
       </div>
 
+      <!-- RINGKASAN INFAQ & PEMBELAJARAN -->
       <div class="card">
-        <h3><i class="fa-solid fa-receipt"></i> Rincian Administrasi</h3>
-        <p id="waliSesiCount" style="margin:4px 0;">Total Sesi: 0 Sesi</p>
-        <p style="margin:4px 0;">Total Tagihan: <b id="waliTotal">Rp 0</b></p>
-        <p style="margin:4px 0;">DP / Titipan: <b id="waliTitipan" style="color:green;">Rp 0</b></p>
-        <p style="margin:4px 0;">Sisa Tagihan: <b id="waliSisa" style="color:red;">Rp 0</b></p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0;"><i class="fa-solid fa-receipt" style="color: #2d5a27;"></i> Informasi Infaq Belajar</h3>
+          <span id="waliStatusBadge" style="padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; background: #e2e8f0; color: #475569;">Proses</span>
+        </div>
+
+        <div style="margin-top: 12px; font-size: 0.9rem; line-height: 1.8;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+            <span>Jumlah Pembelajaran:</span>
+            <b id="waliSesiCount">0 Sesi</b>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px; margin-top: 6px;">
+            <span>Total Biaya Belajar:</span>
+            <b id="waliTotal">Rp 0</b>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px; margin-top: 6px;">
+            <span>Telah Titip / Dibayarkan:</span>
+            <b id="waliTitipan" style="color: #16a34a;">Rp 0</b>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-top: 6px; margin-top: 6px; font-size: 1rem;">
+            <span><b>Sisa Biaya:</b></span>
+            <b id="waliSisa" style="color: #d97706;">Rp 0</b>
+          </div>
+        </div>
+
+        <!-- Tombol Konfirmasi WA -->
+        <a id="btnKonfirmasiWA" href="#" target="_blank" class="btn-wa" style="margin-top: 14px; font-size: 0.85rem; padding: 10px;">
+          <i class="fa-brands fa-whatsapp" style="font-size: 1.1rem;"></i> Konfirmasi Pembayaran Ke Pengelola
+        </a>
       </div>
 
+      <!-- RIWAYAT & FOTO KEGIATAN -->
       <div class="card">
-        <h3><i class="fa-solid fa-clock-rotate-left"></i> Riwayat & Foto Kegiatan</h3>
-        <div id="waliPresensiList">Memuat data...</div>
+        <h3><i class="fa-solid fa-clock-rotate-left" style="color: #2d5a27;"></i> Catatan Kehadiran & Foto Aktivitas</h3>
+        <p style="font-size: 0.8rem; color: #64748b; margin-top: -4px;">Dokumentasi kegiatan anak saat belajar:</p>
+        <div id="waliPresensiList" style="margin-top: 10px;">Memuat data...</div>
       </div>
     </section>
 
