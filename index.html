@@ -702,8 +702,8 @@
       if (!m) return;
 
       document.getElementById('waliNama').textContent = m.nama;
-      document.getElementById('waliImpian').textContent = m.impian || '-';
-      document.getElementById('waliPesan').textContent = `"${m.pesan || 'Tetap semangat!'}"`;
+      document.getElementById('waliImpian').textContent = m.impian || 'Anak Hebat';
+      document.getElementById('waliPesan').textContent = `"${m.pesan || 'Anak senantiasa semangat dan aktif belajar di kelas!'}"`;
 
       const userPresensi = (dbData.presensi || []).filter(p => String(p.key) === String(key)).reverse();
       const sesi = userPresensi.length;
@@ -712,23 +712,41 @@
       const titipan = parseInt(m.titipan || 0);
       const sisa = total - titipan;
 
-      document.getElementById('waliSesiCount').textContent = `Total Pembelajaran: ${sesi} Sesi`;
+      document.getElementById('waliSesiCount').textContent = `${sesi} Sesi`;
       document.getElementById('waliTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
       document.getElementById('waliTitipan').textContent = `Rp ${titipan.toLocaleString('id-ID')}`;
-      document.getElementById('waliSisa').textContent = `Rp ${sisa.toLocaleString('id-ID')}`;
+      document.getElementById('waliSisa').textContent = `Rp ${Math.max(0, sisa).toLocaleString('id-ID')}`;
 
+      // Pengaturan Status & Warna Lembot (Bukan Merah Menakutkan)
+      const badge = document.getElementById('waliStatusBadge');
+      if (sisa <= 0) {
+        badge.textContent = "Lunas / Selesai";
+        badge.style.background = "#dcfce7";
+        badge.style.color = "#15803d";
+      } else {
+        badge.textContent = "Sisa Biaya: Rp " + sisa.toLocaleString('id-ID');
+        badge.style.background = "#fef3c7";
+        badge.style.color = "#b45309";
+      }
+
+      // Link Konfirmasi WhatsApp
+      const waAdmin = dbData.wa || "6285790428165";
+      const pesanWA = encodeURIComponent(`Halo Pengelola Rubel Lestari, saya wali dari ananda ${m.nama}. Ingin mengonfirmasi infaq belajar (Sisa: Rp ${Math.max(0, sisa).toLocaleString('id-ID')}).`);
+      document.getElementById('btnKonfirmasiWA').href = `https://wa.me/${waAdmin}?text=${pesanWA}`;
+
+      // Render Riwayat Kehadiran
       const list = document.getElementById('waliPresensiList');
       list.innerHTML = '';
       if (userPresensi.length === 0) {
-        list.innerHTML = '<p style="color:#888;">Belum ada riwayat presensi.</p>';
+        list.innerHTML = '<p style="color:#888; font-size:0.85rem;">Belum ada data kehadiran tercatat.</p>';
       } else {
         userPresensi.forEach(p => {
           const div = document.createElement('div');
           div.className = 'timeline-item';
-          let imgHtml = p.foto ? `<img src="${p.foto}" class="img-presensi" onclick="openLightbox('${p.foto}', '${p.catatan}')" style="cursor:pointer;">` : '';
+          let imgHtml = p.foto ? `<img src="${p.foto}" class="img-presensi" onclick="openLightbox('${p.foto}', '${p.catatan}')" style="cursor:pointer; margin-top:6px; border-radius:8px; max-height:160px; object-fit:cover;">` : '';
           div.innerHTML = `
-            <div style="font-size:0.75rem; color:#64748b; font-weight:bold;">⏰ ${p.waktu}</div>
-            <div style="font-weight:bold; margin-top:2px;">${p.catatan}</div>
+            <div style="font-size:0.75rem; color:#64748b; font-weight:bold;"><i class="fa-regular fa-clock"></i> ${p.waktu}</div>
+            <div style="font-weight:bold; margin-top:2px; color:#334155;">${p.catatan}</div>
             ${imgHtml}
           `;
           list.appendChild(div);
