@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <meta charset="UTF-8">
   <title>Rumah Belajar Lestari</title>
   <!-- Font & Icon -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background:#f8fafc; margin:0; }
@@ -20,11 +20,6 @@
   </style>
 </head>
 <body>
-  <div class="card">
-  <h3><i class="fa-solid fa-chart-line"></i> Grafik Presensi</h3>
-  <canvas id="chartPresensi" height="100"></canvas>
-</div>
-
   <div class="header-bg">
     <h1>Rumah Belajar Lestari</h1>
     <p>Portal Edukasi Anak</p>
@@ -46,27 +41,18 @@
       <button class="btn" onclick="cekJawaban()">Cek</button>
       <div id="gameResult" style="margin-top:10px;"></div>
     </div>
+
+    <!-- Grafik Presensi -->
+    <div class="card">
+      <h3><i class="fa-solid fa-chart-line"></i> Grafik Presensi</h3>
+      <canvas id="chartPresensi" height="100"></canvas>
+    </div>
   </div>
 
   <!-- Toast Notification -->
   <div id="toast"></div>
 
   <script>
-    // Contoh data presensi
-const presensiData = [5, 7, 3, 8, 6]; // jumlah sesi per minggu
-const ctx = document.getElementById('chartPresensi').getContext('2d');
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Minggu 1','Minggu 2','Minggu 3','Minggu 4','Minggu 5'],
-    datasets: [{
-      label: 'Jumlah Presensi',
-      data: presensiData,
-      backgroundColor: '#10b981'
-    }]
-  }
-});
-
     // Kamus Mini
     const dictionary = { "kucing":"Cat 🐱", "buku":"Book 📖", "rumah":"House 🏠", "pensil":"Pencil ✏️" };
     function cariKamus(){
@@ -91,6 +77,21 @@ new Chart(ctx, {
       toast.style.display="block";
       setTimeout(()=>toast.style.display="none",3000);
     }
+
+    // Grafik Presensi dengan Chart.js
+    const presensiData = [5, 7, 3, 8, 6]; // contoh data jumlah sesi per minggu
+    const ctx = document.getElementById('chartPresensi').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Minggu 1','Minggu 2','Minggu 3','Minggu 4','Minggu 5'],
+        datasets: [{
+          label: 'Jumlah Presensi',
+          data: presensiData,
+          backgroundColor: '#10b981'
+        }]
+      }
+    });
   </script>
 </body>
 </html>
