@@ -5,30 +5,8 @@
   <title>Rumah Belajar Lestari</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body { font-family:'Plus Jakarta Sans',sans-serif; background:#f8fafc; margin:0; }
-    .header-bg { background:linear-gradient(135deg,#0f172a,#0f2b1d); color:white; padding:20px; }
-    .navbar { display:flex; justify-content:space-between; align-items:center; max-width:1100px; margin:auto; }
-    .nav-links { list-style:none; display:flex; gap:20px; }
-    .nav-links li a { color:white; text-decoration:none; font-weight:600; }
-    .nav-links li a:hover { color:#10b981; }
-    .hero { text-align:center; margin-top:20px; }
-    .hero h1 { font-size:28px; font-weight:800; }
-    .hero p { font-size:14px; color:#cbd5e1; }
-    .btn { background:#10b981; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer; transition:.2s; }
-    .btn:hover { background:#059669; }
-    .container { max-width:1100px; margin:20px auto; padding:15px; }
-    .card { background:white; border-radius:12px; padding:20px; margin-bottom:20px; box-shadow:0 4px 10px rgba(0,0,0,0.05); transition:.2s; }
-    .card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,0.1); }
-    .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; margin-bottom:20px; }
-    .stat-card { background:white; border-radius:12px; padding:20px; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
-    .stat-card h2 { color:#10b981; font-size:24px; margin:0; }
-    .view-section { display:none; }
-    .view-section.active { display:block; }
-    #toast { position:fixed; bottom:20px; right:20px; background:#333; color:white; padding:10px 15px; border-radius:8px; display:none; }
-    @media(max-width:600px){ .navbar{flex-direction:column;} .nav-links{flex-direction:column; gap:10px;} }
-  </style>
 </head>
 <body>
   <!-- Header -->
@@ -123,31 +101,24 @@
       if(view==='admin') document.getElementById('viewAdmin').classList.add('active');
     }
 
-        // Kamus
+    // Kamus
     const dictionary = { "kucing":"Cat 🐱","buku":"Book 📖","rumah":"House 🏠","pensil":"Pencil ✏️" };
     function cariKamus(){
       const input=document.getElementById('searchKamus').value.toLowerCase().trim();
       const res=document.getElementById('kamusResult');
       if(!input){ res.innerHTML="💡 Ketik kata di atas untuk memulai."; return; }
-      res.innerHTML=dictionary[input]
-        ? `Terjemahan: <b style="color:green;">${dictionary[input]}</b>`
-        : "❌ Kata belum ditemukan.";
+      res.innerHTML=dictionary[input]?`Terjemahan: <b style="color:green;">${dictionary[input]}</b>`:"❌ Kata belum ditemukan.";
     }
 
     // Game
     function cekJawaban(){
       const val=parseInt(document.getElementById('jawabGame').value);
       const res=document.getElementById('gameResult');
-      if(val===8){
-        showToast("🎉 Benar sekali!");
-        res.innerHTML="<span style='color:green;'>Benar!</span>";
-      } else {
-        showToast("❌ Coba lagi ya!");
-        res.innerHTML="<span style='color:red;'>Salah!</span>";
-      }
+      if(val===8){ showToast("🎉 Benar sekali!"); res.innerHTML="<span style='color:green;'>Benar!</span>"; }
+      else { showToast("❌ Coba lagi ya!"); res.innerHTML="<span style='color:red;'>Salah!</span>"; }
     }
 
-    // Toast Notification
+    // Toast
     function showToast(msg){
       const toast=document.getElementById('toast');
       toast.textContent=msg;
@@ -155,20 +126,10 @@
       setTimeout(()=>toast.style.display="none",3000);
     }
 
-    // Grafik Presensi dengan Chart.js
-    const presensiData=[5,7,3,8,6]; // contoh data
+    // Grafik Presensi
+    const presensiData=[5,7,3,8,6];
     const ctx=document.getElementById('chartPresensi').getContext('2d');
-    new Chart(ctx,{
-      type:'bar',
-      data:{
-        labels:['Minggu 1','Minggu 2','Minggu 3','Minggu 4','Minggu 5'],
-        datasets:[{
-          label:'Jumlah Presensi',
-          data:presensiData,
-          backgroundColor:'#10b981'
-        }]
-      }
-    });
+    new Chart(ctx,{type:'bar',data:{labels:['Minggu 1','Minggu 2','Minggu 3','Minggu 4','Minggu 5'],datasets:[{label:'Jumlah Presensi',data:presensiData,backgroundColor:'#10b981'}]}});
 
     // Admin actions (dummy)
     function simpanPresensi(){ showToast("Presensi tersimpan!"); }
