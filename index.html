@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Rumah Belajar Lestari</title>
+  <!-- Font & Icon -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background:#f8fafc; margin:0; }
+    .header-bg { background:linear-gradient(135deg,#0f172a,#0f2b1d); color:white; padding:20px; text-align:center; }
+    .container { max-width:900px; margin:20px auto; padding:15px; }
+    .card { background:white; border-radius:12px; padding:15px; margin-bottom:15px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+    .btn { background:#10b981; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer; }
+    .btn:hover { background:#059669; }
+    #toast { position:fixed; bottom:20px; right:20px; background:#333; color:white; padding:10px 15px; border-radius:8px; display:none; }
+  </style>
+</head>
+<body>
+  <div class="header-bg">
+    <h1>Rumah Belajar Lestari</h1>
+    <p>Portal Edukasi Anak</p>
+  </div>
+
+  <div class="container">
+    <!-- Kamus Mini -->
+    <div class="card">
+      <h3><i class="fa-solid fa-book"></i> Kamus Mini</h3>
+      <input type="text" id="searchKamus" placeholder="Cari kata..." onkeyup="cariKamus()">
+      <div id="kamusResult" style="margin-top:10px;">💡 Ketik kata di atas untuk memulai.</div>
+    </div>
+
+    <!-- Game Mini -->
+    <div class="card">
+      <h3><i class="fa-solid fa-gamepad"></i> Game Asah Otak</h3>
+      <p>Berapakah hasil dari 5 + 3 ?</p>
+      <input type="number" id="jawabGame" placeholder="Jawabanmu...">
+      <button class="btn" onclick="cekJawaban()">Cek</button>
+      <div id="gameResult" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <script>
+    // Kamus Mini
+    const dictionary = { "kucing":"Cat 🐱", "buku":"Book 📖", "rumah":"House 🏠", "pensil":"Pencil ✏️" };
+    function cariKamus(){
+      const input = document.getElementById('searchKamus').value.toLowerCase().trim();
+      const res = document.getElementById('kamusResult');
+      if(!input){ res.innerHTML="💡 Ketik kata di atas untuk memulai."; return; }
+      res.innerHTML = dictionary[input] ? `Terjemahan: <b style="color:green;">${dictionary[input]}</b>` : "❌ Kata belum ditemukan.";
+    }
+
+    // Game Mini
+    function cekJawaban(){
+      const val = parseInt(document.getElementById('jawabGame').value);
+      const res = document.getElementById('gameResult');
+      if(val===8){ showToast("🎉 Benar sekali!"); res.innerHTML="<span style='color:green;'>Benar!</span>"; }
+      else { showToast("❌ Coba lagi ya!"); res.innerHTML="<span style='color:red;'>Salah!</span>"; }
+    }
+
+    // Toast Notification
+    function showToast(msg){
+      const toast=document.getElementById('toast');
+      toast.textContent=msg;
+      toast.style.display="block";
+      setTimeout(()=>toast.style.display="none",3000);
+    }
+  </script>
+</body>
+</html>
