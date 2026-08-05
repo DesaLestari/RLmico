@@ -8,6 +8,89 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* STYLING GALERI & TOMBOL WA HIJAU MODERN */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .gallery-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s;
+    }
+    .gallery-card:hover { transform: translateY(-3px); }
+    .gallery-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-caption {
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-dark, #334155);
+      text-align: center;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+      margin-bottom: 16px;
+    }
+    .feature-card {
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+    }
+    .feature-card i {
+      font-size: 1.5rem;
+      color: #2d5a27;
+      margin-bottom: 6px;
+    }
+    .feature-card h4 {
+      margin: 0 0 4px 0;
+      font-size: 0.85rem;
+    }
+    .feature-card p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+    /* Tombol WhatsApp Spesial */
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #25D366;
+      color: #ffffff !important;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+      transition: all 0.2s ease;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 10px;
+    }
+    .btn-wa:hover {
+      background-color: #1ebc57;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+    }
+  </style>
 </head>
 <body>
 
@@ -32,7 +115,7 @@
     <!-- 1. BERANDA / PUBLIC VIEW -->
     <section id="viewPublic" class="view-section active">
       
-      <!-- BANNER PENGUMUMAN BESAR -->
+      <!-- BANNER PENGUMUMAN -->
       <div id="pubNoticeBox" class="announcement-banner" style="display:none;">
         <div class="announcement-header">
           <i class="fa-solid fa-bullhorn fa-bounce" style="font-size:1.4rem;"></i>
@@ -50,13 +133,48 @@
           Di <b>Rubel Lestari Friendship</b>, kami percaya bahwa setiap anak memiliki kecepatan belajarnya masing-masing. Kami tidak menuntut mereka jadi yang tercepat, tapi kami menemani mereka menjadi yang terbaik.
         </div>
 
-        <p style="line-height:1.6; color:var(--text-dark); margin-bottom:16px;">
+        <p style="line-height:1.6; color:var(--text-dark); margin-bottom:12px;">
           Sebuah rumah belajar dengan pendekatan bersahabat (<i>friendship</i>) yang menghargai setiap proses tumbuh kembang anak. Kami tidak hanya mengejar angka, tapi mendidik karakter anak agar mampu belajar secara mandiri dengan bahagia.
         </p>
 
-        <div style="background:#f8fafc; padding:14px; border-radius:10px; font-size:0.9rem; border:1px solid #e2e8f0;">
-          <div style="margin-bottom:6px;"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> <b>Lokasi:</b> <span id="pubLokasi">Memuat alamat...</span></div>
-          <div><i class="fa-brands fa-whatsapp" style="color:#16a34a; font-weight:bold;"></i> <b>Konsultasi & Uji Coba Gratis:</b> <a id="pubWaLink" href="#" target="_blank" style="color:var(--primary); font-weight:bold; text-decoration:none;">Hubungi Kami Via WhatsApp</a></div>
+        <!-- FITUR KEUNGGULAN -->
+        <div class="features-grid">
+          <div class="feature-card">
+            <i class="fa-solid fa-users"></i>
+            <h4>Kelompok Kecil</h4>
+            <p>Pendampingan privat & intensif</p>
+          </div>
+          <div class="feature-card">
+            <i class="fa-solid fa-face-smile"></i>
+            <h4>Fun Learning</h4>
+            <p>Belajar ceria & tanpa tekanan</p>
+          </div>
+          <div class="feature-card">
+            <i class="fa-solid fa-chart-line"></i>
+            <h4>Laporan Rutin</h4>
+            <p>Catatan perkembangan transparan</p>
+          </div>
+        </div>
+
+        <!-- LOKASI & TOMBOL WHATSAPP BERSIH -->
+        <div style="background:#f8fafc; padding:16px; border-radius:12px; font-size:0.9rem; border:1px solid #e2e8f0;">
+          <div style="margin-bottom:8px; color:#334155;">
+            <i class="fa-solid fa-location-dot" style="color:#2d5a27; font-size:1.1rem; margin-right:4px;"></i> 
+            <b>Lokasi:</b> <span id="pubLokasi">Memuat alamat...</span>
+          </div>
+          
+          <a id="pubWaBtn" href="#" target="_blank" class="btn-wa">
+            <i class="fa-brands fa-whatsapp" style="font-size:1.3rem;"></i> Konsultasi & Uji Coba Gratis
+          </a>
+        </div>
+      </div>
+
+      <!-- GALERI FOTO SUASANA BELAJAR -->
+      <div class="card">
+        <h3><i class="fa-solid fa-images" style="color:#2d5a27;"></i> Suasana Belajar di Rubel Lestari</h3>
+        <p style="font-size:0.85rem; color:#64748b; margin-top:-4px;">Dokumentasi kegiatan dan ruang belajar anak-anak:</p>
+        <div id="pubGaleriGrid" class="gallery-grid">
+          <p style="color:#888; font-size:0.85rem;">Memuat galeri foto...</p>
         </div>
       </div>
 
@@ -64,12 +182,12 @@
       <div class="card">
         <h3><i class="fa-solid fa-chart-simple"></i> Ringkasan Aktivitas</h3>
         <div style="display:flex; gap:16px; text-align:center;">
-          <div style="flex:1; background:var(--primary-light); padding:16px; border-radius:10px;">
-            <h2 id="pubTotalMurid" style="margin:0; color:var(--primary); font-size:1.8rem;">0</h2>
-            <small style="color:var(--text-muted); font-weight:700;">Siswa Aktif</small>
+          <div style="flex:1; background:#e8f5e9; padding:16px; border-radius:10px;">
+            <h2 id="pubTotalMurid" style="margin:0; color:#2d5a27; font-size:1.8rem;">0</h2>
+            <small style="color:#64748b; font-weight:700;">Siswa Aktif</small>
           </div>
           <div style="flex:1; background:#fef3c7; padding:16px; border-radius:10px;">
-            <h2 id="pubTotalPresensi" style="margin:0; color:var(--accent); font-size:1.8rem;">0</h2>
+            <h2 id="pubTotalPresensi" style="margin:0; color:#d97706; font-size:1.8rem;">0</h2>
             <small style="color:#78350f; font-weight:700;">Sesi Pembelajaran</small>
           </div>
         </div>
@@ -122,17 +240,37 @@
         <button class="btn btn-danger" onclick="logoutAdmin()">Keluar Admin</button>
       </div>
 
-      <!-- EDIT ALAMAT & WHATSAPP BIMBEL -->
+      <!-- UPLOAD FOTO GALERI SUASANA -->
       <div class="card">
-        <h3><i class="fa-solid fa-sliders" style="color:var(--primary);"></i> Pengaturan Alamat & WhatsApp Bimbel</h3>
+        <h3><i class="fa-solid fa-camera-retro" style="color:#2d5a27;"></i> Upload Foto Suasana Belajar</h3>
+        <div class="form-group">
+          <label>Keterangan Foto (Misal: Ruang Belajar Nyaman / Kegiatan Melukis):</label>
+          <input type="text" id="admGaleriCaption" placeholder="Tulis deskripsi singkat...">
+        </div>
+        <div class="form-group" style="margin-top:8px;">
+          <label>Pilih Foto:</label>
+          <input type="file" id="admGaleriFoto" accept="image/*" onchange="previewGaleri(this)">
+          <img id="imgGaleriPreview" style="display:none; width:100%; max-height:180px; object-fit:cover; margin-top:8px; border-radius:8px;">
+        </div>
+        <button class="btn btn-success" onclick="simpanGaleriAdmin()" style="margin-top:8px;">
+          <i class="fa-solid fa-upload"></i> Upload Ke Galeri Beranda
+        </button>
+
+        <h4 style="margin-top:20px; margin-bottom:8px;">Daftar Foto Galeri Saat Ini:</h4>
+        <div id="admGaleriList" class="gallery-grid"></div>
+      </div>
+
+      <!-- EDIT ALAMAT & WHATSAPP -->
+      <div class="card">
+        <h3><i class="fa-solid fa-sliders" style="color:#2d5a27;"></i> Pengaturan Alamat & WhatsApp</h3>
         <div class="form-grid">
           <div class="form-group">
             <label>Alamat / Lokasi Bimbel:</label>
-            <input type="text" id="admLokasiInput" placeholder="Contoh: Jl. Mawar No. 12, Desa Lestari">
+            <input type="text" id="admLokasiInput" placeholder="Contoh: Wonokasian">
           </div>
           <div class="form-group">
             <label>Nomor WhatsApp Admin (Gunakan format 62...):</label>
-            <input type="text" id="admWaInput" placeholder="Contoh: 6281234567890">
+            <input type="text" id="admWaInput" placeholder="Contoh: 6285790428165">
           </div>
         </div>
         <button class="btn btn-primary" onclick="simpanProfilAdmin()">
@@ -142,9 +280,9 @@
 
       <!-- UPDATE PENGUMUMAN BERANDA -->
       <div class="card">
-        <h3><i class="fa-solid fa-bullhorn" style="color:var(--accent);"></i> Update Pengumuman Beranda & Wali</h3>
+        <h3><i class="fa-solid fa-bullhorn" style="color:#d97706;"></i> Update Pengumuman</h3>
         <div class="form-group">
-          <label>Teks Pengumuman / Pemberitahuan:</label>
+          <label>Teks Pengumuman:</label>
           <textarea id="admPengumumanInput" rows="2" placeholder="Tulis pengumuman baru..."></textarea>
         </div>
         <button class="btn btn-warning" onclick="simpanPengumumanAdmin()" style="margin-top:8px;">
@@ -154,7 +292,7 @@
 
       <!-- INPUT PRESENSI -->
       <div class="card">
-        <h3><i class="fa-solid fa-calendar-check" style="color:var(--primary);"></i> Input Presensi Murid</h3>
+        <h3><i class="fa-solid fa-calendar-check" style="color:#2d5a27;"></i> Input Presensi Murid</h3>
         <div class="form-grid">
           <div class="form-group">
             <label>Pilih Murid:</label>
@@ -180,7 +318,7 @@
 
       <!-- PENDAFTARAN MURID BARU -->
       <div class="card">
-        <h3><i class="fa-solid fa-user-plus" style="color:var(--secondary);"></i> Tambah Murid Baru</h3>
+        <h3><i class="fa-solid fa-user-plus" style="color:#2563eb;"></i> Tambah Murid Baru</h3>
         <div class="form-grid">
           <div class="form-group">
             <label>Nama Lengkap:</label>
@@ -204,7 +342,7 @@
 
       <!-- KELOLA DATA MURID -->
       <div class="card">
-        <h3><i class="fa-solid fa-users-gear" style="color:var(--primary);"></i> Kelola Data Murid (Ubah / Hapus)</h3>
+        <h3><i class="fa-solid fa-users-gear" style="color:#2d5a27;"></i> Kelola Data Murid</h3>
         <div class="table-responsive">
           <table>
             <thead>
@@ -226,7 +364,7 @@
 
       <!-- HISTORI PRESENSI -->
       <div class="card">
-        <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent);"></i> Histori Presensi Terkini</h3>
+        <h3><i class="fa-solid fa-clock-rotate-left" style="color:#d97706;"></i> Histori Presensi Terkini</h3>
         <div class="table-responsive">
           <table>
             <thead>
@@ -252,7 +390,7 @@
   <div id="modalWali" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalWali')">&times;</span>
-      <h3 style="margin-top:0;"><i class="fa-solid fa-lock" style="color:var(--primary);"></i> Login Wali Murid</h3>
+      <h3 style="margin-top:0;"><i class="fa-solid fa-lock" style="color:#2d5a27;"></i> Login Wali Murid</h3>
       <div class="form-group" style="margin-bottom:10px;">
         <label>Pilih Nama Anak:</label>
         <select id="selectMuridWali"><option value="">-- Pilih Anak --</option></select>
@@ -268,7 +406,7 @@
   <div id="modalAdmin" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalAdmin')">&times;</span>
-      <h3 style="margin-top:0;"><i class="fa-solid fa-shield-halved" style="color:var(--accent);"></i> Akses Pengelola Admin</h3>
+      <h3 style="margin-top:0;"><i class="fa-solid fa-shield-halved" style="color:#d97706;"></i> Akses Pengelola Admin</h3>
       <div class="form-group" style="margin-bottom:14px;">
         <label>Password Admin:</label>
         <input type="password" id="passAdmin" placeholder="Masukkan Password">
@@ -313,13 +451,14 @@
   <div id="toast"></div>
 
   <script>
-    // ⚠️ GANTI DENGAN URL DEPLOYMENT GOOGLE APPS SCRIPT ANDA
-    const API_URL = "https://script.google.com/macros/s/AKfycbys8iPlgyDmA4qHSaVlrXw8e-dQ9mfyS-SqjHwz57AnFxCxTeJEzXM2edIRtwQT2vBBrw/exec"; 
+    // ⚠️ PASTA URL APPS SCRIPT ANDA DI SINI
+    const API_URL = "https://script.google.com/macros/s/AKfycbx_GANTI_DENGAN_URL_DEPLOYMENT_ANDA/exec"; 
 
-    let dbData = { murid: {}, presensi: [], pengumuman: "", lokasi: "", wa: "" };
+    let dbData = { murid: {}, presensi: [], pengumuman: "", lokasi: "", wa: "", galeri: [] };
     let currentWaliKey = null;
     let isAdminLoggedIn = false;
     let currentFotoBase64 = "";
+    let currentGaleriBase64 = "";
 
     window.onload = function() { loadData(); };
 
@@ -343,20 +482,19 @@
       document.getElementById('pubTotalMurid').textContent = muridKeys.length + " Anak";
       document.getElementById('pubTotalPresensi').textContent = (dbData.presensi || []).length + " Sesi";
 
-      // Render Lokasi & WA
       const lokasi = dbData.lokasi || "Desa Lestari";
       const wa = dbData.wa || "6281234567890";
       document.getElementById('pubLokasi').textContent = lokasi;
       
-      const waLink = document.getElementById('pubWaLink');
-      waLink.href = `https://wa.me/${wa}`;
-      waLink.textContent = `Hubungi Kami Via WhatsApp (${wa})`;
+      // Update Tombol WA Hijau
+      const waBtn = document.getElementById('pubWaBtn');
+      const waMsg = encodeURIComponent("Halo Admin Rubel Lestari, saya berminat untuk konsultasi dan uji coba belajar gratis untuk anak saya.");
+      waBtn.href = `https://wa.me/${wa}?text=${waMsg}`;
 
-      // Populasikan nilai ke input admin juga jika login
       document.getElementById('admLokasiInput').value = lokasi;
       document.getElementById('admWaInput').value = wa;
 
-      // Display Notice
+      // Notice
       const noticeText = dbData.pengumuman || "";
       const box = document.getElementById('pubNoticeBox');
       const waliBox = document.getElementById('waliNoticeBox');
@@ -369,6 +507,23 @@
       } else {
         box.style.display = "none";
         waliBox.style.display = "none";
+      }
+
+      // Render Galeri
+      const grid = document.getElementById('pubGaleriGrid');
+      grid.innerHTML = '';
+      if (!dbData.galeri || dbData.galeri.length === 0) {
+        grid.innerHTML = '<p style="color:#888; font-size:0.85rem;">Belum ada foto suasana disajikan.</p>';
+      } else {
+        dbData.galeri.forEach(g => {
+          const div = document.createElement('div');
+          div.className = 'gallery-card';
+          div.innerHTML = `
+            <img src="${g.foto}" class="gallery-img" alt="Suasana Rubel Lestari">
+            <div class="gallery-caption">${g.caption}</div>
+          `;
+          grid.appendChild(div);
+        });
       }
     }
 
@@ -483,8 +638,9 @@
       }
     }
 
-    // ADMIN TABLES
+    // ADMIN TABLES & GALERI MANAGING
     function renderAdminTables() {
+      // Data Murid
       const tblM = document.getElementById('tblMuridBody');
       tblM.innerHTML = '';
       for (let k in dbData.murid) {
@@ -504,6 +660,7 @@
         tblM.appendChild(tr);
       }
 
+      // Histori
       const tblH = document.getElementById('tblHistoriBody');
       tblH.innerHTML = '';
       const listH = [...(dbData.presensi || [])].reverse();
@@ -522,28 +679,82 @@
         `;
         tblH.appendChild(tr);
       });
+
+      // Galeri Admin
+      const admG = document.getElementById('admGaleriList');
+      admG.innerHTML = '';
+      if (dbData.galeri) {
+        dbData.galeri.forEach(g => {
+          const div = document.createElement('div');
+          div.className = 'gallery-card';
+          div.innerHTML = `
+            <img src="${g.foto}" class="gallery-img">
+            <div class="gallery-caption">${g.caption}</div>
+            <button class="btn btn-danger btn-block" style="border-radius:0 0 10px 10px; font-size:12px;" onclick="hapusGaleriAdmin(${g.rowId})">
+              <i class="fa-solid fa-trash"></i> Hapus Foto
+            </button>
+          `;
+          admG.appendChild(div);
+        });
+      }
     }
 
-    // ADMIN ACTIONS
+    // ACTIONS FOTO GALERI
+    async function simpanGaleriAdmin() {
+      const caption = document.getElementById('admGaleriCaption').value || "Suasana Belajar";
+      if (!currentGaleriBase64) return alert("Pilih foto terlebih dahulu!");
+
+      showToast("Mengunggah foto galeri...");
+      await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'tambahGaleri', foto: currentGaleriBase64, caption: caption })
+      });
+
+      document.getElementById('admGaleriCaption').value = "";
+      document.getElementById('admGaleriFoto').value = "";
+      document.getElementById('imgGaleriPreview').style.display = "none";
+      currentGaleriBase64 = "";
+
+      showToast("Foto Berhasil Ditambahkan!");
+      loadData();
+    }
+
+    async function hapusGaleriAdmin(rowId) {
+      if (!confirm("Hapus foto ini dari galeri beranda?")) return;
+      showToast("Menghapus foto...");
+      await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'hapusGaleri', rowId: rowId }) });
+      showToast("Foto Terhapus!");
+      loadData();
+    }
+
+    function previewGaleri(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          currentGaleriBase64 = e.target.result;
+          const img = document.getElementById('imgGaleriPreview');
+          img.src = currentGaleriBase64;
+          img.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // ACTIONS OTHER
     async function simpanProfilAdmin() {
       const lokasi = document.getElementById('admLokasiInput').value;
       const wa = document.getElementById('admWaInput').value;
-      
-      showToast("Menyimpan Alamat & WA...");
-      await fetch(API_URL, { 
-        method: 'POST', 
-        body: JSON.stringify({ action: 'simpanProfil', lokasi: lokasi, wa: wa }) 
-      });
-      
+      showToast("Menyimpan...");
+      await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'simpanProfil', lokasi: lokasi, wa: wa }) });
       dbData.lokasi = lokasi;
       dbData.wa = wa;
       renderPublic();
-      showToast("Alamat & WA Berhasil Diperbarui!");
+      showToast("Alamat & WA Disimpan!");
     }
 
     async function simpanPengumumanAdmin() {
       const teks = document.getElementById('admPengumumanInput').value;
-      showToast("Menerbitkan pengumuman...");
+      showToast("Menerbitkan...");
       await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'simpanPengumuman', teks: teks }) });
       dbData.pengumuman = teks;
       renderPublic();
@@ -553,14 +764,13 @@
     async function simpanPresensiAdmin(withFoto) {
       const key = document.getElementById('admAbsenMurid').value;
       const note = document.getElementById('admAbsenNote').value || "Hadir Belajar";
-      if (!key) return alert("Pilih murid terlebih dahulu!");
+      if (!key) return alert("Pilih murid!");
 
       const now = new Date();
       const waktuStr = now.toLocaleDateString('id-ID', {weekday:'short', day:'numeric', month:'short'}) + " " + now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
       const fotoKirim = withFoto ? currentFotoBase64 : "";
 
       showToast("Mencatat presensi...");
-
       await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify({ action: 'absen', key: String(key), waktu: waktuStr, catatan: note, foto: fotoKirim })
@@ -583,7 +793,7 @@
 
       if (!nama || !pin) return alert("Nama & PIN wajib diisi!");
 
-      showToast("Mendaftarkan murid...");
+      showToast("Mendaftarkan...");
       await fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify({ action: 'tambahMurid', nama: nama, pin: pin, tarif: tarif, impian: impian })
@@ -624,24 +834,24 @@
         pesan: document.getElementById('editPesan').value
       };
 
-      showToast("Menyimpan data...");
+      showToast("Menyimpan...");
       closeModal('modalEditMurid');
       await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
-      showToast("Data Murid Diperbarui!");
+      showToast("Data Diperbarui!");
       loadData();
     }
 
     async function hapusMuridAdmin(key) {
       if (!confirm("Yakin ingin menghapus data murid ini?")) return;
-      showToast("Menghapus murid...");
+      showToast("Menghapus...");
       await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'hapusMurid', key: key }) });
       showToast("Murid Dihapus!");
       loadData();
     }
 
     async function hapusPresensiAdmin(rowId) {
-      if (!confirm("Hapus catatan presensi ini?")) return;
-      showToast("Menghapus presensi...");
+      if (!confirm("Hapus catatan ini?")) return;
+      showToast("Menghapus...");
       await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'hapusAbsen', rowId: rowId }) });
       showToast("Presensi Dihapus!");
       loadData();
