@@ -127,3 +127,16 @@ body {
   .navbar { flex-direction: column; }
   .nav-links { flex-direction: column; gap: 10px; }
 }
+/* Tampilan Halaman (View Switcher) */
+.view-section {
+  display: none;
+}
+.view-section.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
