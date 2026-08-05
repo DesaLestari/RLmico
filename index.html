@@ -11,10 +11,10 @@
 </head>
 <body>
 
-  <!-- Header & Navigation -->
+  <!-- Header & Navigasi Utama -->
   <header class="header-bg">
     <nav class="navbar">
-      <div class="brand"><i class="fa-solid fa-graduation-cap"></i> Rubel Lestari Friendship</div>
+      <div class="brand"><i class="fa-solid fa-graduation-cap"></i> Rubel Lestari</div>
       <ul class="nav-links">
         <li><a onclick="showView('public')"><i class="fa-solid fa-house"></i> Beranda</a></li>
         <li><a onclick="openModal('modalWali')"><i class="fa-solid fa-user-check"></i> Wali Murid</a></li>
@@ -29,208 +29,343 @@
 
   <div class="container">
     
-    <!-- 1. PUBLIC VIEW -->
+    <!-- 1. BERANDA / PUBLIC VIEW -->
     <section id="viewPublic" class="view-section active">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h2 id="pubTotalMurid">0</h2>
-          <p>Siswa Aktif</p>
-        </div>
-        <div class="stat-card">
-          <h2 id="pubTotalPresensi">0</h2>
-          <p>Total Sesi Presensi</p>
+      <!-- Banner Pengumuman dari Admin -->
+      <div id="pubNoticeBox" class="notice-box" style="display:none;">
+        <i class="fa-solid fa-bullhorn" style="color:var(--primary);"></i> 
+        <span id="pubNoticeText">Memuat informasi...</span>
+      </div>
+
+      <div class="card">
+        <h3><i class="fa-solid fa-chart-simple" style="color:var(--primary);"></i> Ringkasan Statistik</h3>
+        <div style="display:flex; gap:20px; text-align:center;">
+          <div style="flex:1; background:#f8fafc; padding:12px; border-radius:8px;">
+            <h2 id="pubTotalMurid" style="margin:0; color:var(--primary);">0</h2>
+            <small style="color:var(--text-muted);">Siswa Aktif</small>
+          </div>
+          <div style="flex:1; background:#f8fafc; padding:12px; border-radius:8px;">
+            <h2 id="pubTotalPresensi" style="margin:0; color:var(--secondary);">0</h2>
+            <small style="color:var(--text-muted);">Sesi Pembelajaran</small>
+          </div>
         </div>
       </div>
 
       <div class="card">
         <h3><i class="fa-solid fa-book" style="color:var(--primary);"></i> Kamus Mini Edukasi</h3>
         <input type="text" id="searchKamus" placeholder="Cari kata (contoh: kucing, buku, rumah)..." onkeyup="cariKamus()">
-        <div id="kamusResult" style="margin-top:12px; font-weight:600;">💡 Ketik kata di atas untuk memulai pencarian.</div>
+        <div id="kamusResult" style="margin-top:10px; font-weight:600;">💡 Ketik kata di atas untuk mencari.</div>
       </div>
 
       <div class="card">
         <h3><i class="fa-solid fa-gamepad" style="color:var(--accent);"></i> Game Asah Otak</h3>
-        <p style="margin: 4px 0 12px 0;">Berapakah hasil dari <b>5 + 3</b> ?</p>
-        <input type="number" id="jawabGame" placeholder="Jawabanmu...">
-        <button class="btn btn-primary" onclick="cekJawaban()">Cek Jawaban</button>
-        <div id="gameResult" style="margin-top:10px; font-weight:bold;"></div>
+        <p style="margin: 4px 0 8px 0;">Berapakah hasil dari <b>5 + 3</b> ?</p>
+        <div style="display:flex; gap:10px;">
+          <input type="number" id="jawabGame" placeholder="Jawaban..." style="max-width:150px;">
+          <button class="btn btn-warning" onclick="cekJawaban()">Cek Jawaban</button>
+        </div>
+        <div id="gameResult" style="margin-top:8px; font-weight:bold;"></div>
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-chart-line" style="color:var(--secondary);"></i> Ringkasan Presensi Bulanan</h3>
+        <h3><i class="fa-solid fa-chart-line" style="color:var(--secondary);"></i> Grafik Presensi Bulanan</h3>
         <canvas id="chartPresensi" height="100"></canvas>
       </div>
     </section>
 
-    <!-- 2. WALI MURID VIEW -->
+    <!-- 2. WALI MURID PORTAL VIEW -->
     <section id="viewWali" class="view-section">
-      <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-        <h2 style="margin:0; font-size: 1.3rem;"><i class="fa-solid fa-user-large"></i> Jurnal Perkembangan Anak</h2>
-        <button class="btn btn-danger" onclick="logoutWali()" style="width: auto; margin:0; padding: 8px 16px;">Keluar</button>
+      <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0;"><i class="fa-solid fa-user-large"></i> Portal Wali Murid</h2>
+        <button class="btn btn-danger" onclick="logoutWali()">Keluar</button>
+      </div>
+
+      <div id="waliNoticeBox" class="notice-box" style="display:none;">
+        <i class="fa-solid fa-bullhorn" style="color:var(--primary);"></i> <span id="waliNoticeText"></span>
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-id-card" style="color:var(--primary);"></i> Data Profil</h3>
-        <p style="margin: 6px 0;">Nama Anak: <b id="waliNama">-</b></p>
-        <p style="margin: 6px 0;">Cita-cita: <b id="waliImpian" style="color:var(--secondary);">-</b></p>
-        <p style="margin: 6px 0;">Pesan Pengajar: <i id="waliPesan">-</i></p>
+        <h3><i class="fa-solid fa-address-card" style="color:var(--primary);"></i> Profil & Catatan Pengajar</h3>
+        <p style="margin:4px 0;">Nama Anak: <b id="waliNama">-</b></p>
+        <p style="margin:4px 0;">Cita-cita: <b id="waliImpian" style="color:var(--secondary);">-</b></p>
+        <p style="margin:4px 0;">Catatan Khusus: <i id="waliPesan">-</i></p>
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-wallet" style="color:var(--accent);"></i> Transparansi Administrasi</h3>
-        <p id="waliSesiCount" style="margin: 6px 0;">Sesi Terjalani: 0 Kali</p>
-        <p style="margin: 6px 0;">Total Biaya: <b id="waliTotal">Rp 0</b></p>
-        <p style="margin: 6px 0;">Titipan / DP: <b id="waliTitipan" style="color:green;">Rp 0</b></p>
-        <p style="margin: 6px 0;">Sisa Tagihan: <b id="waliSisa" style="color:red;">Rp 0</b></p>
+        <h3><i class="fa-solid fa-receipt" style="color:var(--accent);"></i> Rincian Administrasi</h3>
+        <p id="waliSesiCount" style="margin:4px 0;">Total Sesi: 0 Sesi</p>
+        <p style="margin:4px 0;">Total Tagihan: <b id="waliTotal">Rp 0</b></p>
+        <p style="margin:4px 0;">DP / Titipan: <b id="waliTitipan" style="color:green;">Rp 0</b></p>
+        <p style="margin:4px 0;">Sisa Tagihan: <b id="waliSisa" style="color:red;">Rp 0</b></p>
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--secondary);"></i> Timeline Kegiatan & Presensi</h3>
-        <div id="waliPresensiList">Memuat catatan presensi...</div>
+        <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--secondary);"></i> Riwayat & Foto Kegiatan</h3>
+        <div id="waliPresensiList">Memuat data...</div>
       </div>
     </section>
 
-    <!-- 3. ADMIN VIEW -->
+    <!-- 3. ADMIN / PENGELOLA PANEL VIEW -->
     <section id="viewAdmin" class="view-section">
-      <div class="card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-        <h2 style="margin:0; font-size: 1.3rem;"><i class="fa-solid fa-user-shield"></i> Panel Pengelola Admin</h2>
-        <button class="btn btn-danger" onclick="logoutAdmin()" style="width: auto; margin:0; padding: 8px 16px;">Keluar Admin</button>
+      <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0;"><i class="fa-solid fa-user-shield"></i> Panel Pengelola Admin</h2>
+        <button class="btn btn-danger" onclick="logoutAdmin()">Keluar Admin</button>
       </div>
 
+      <!-- FITUR 1: UPDATE PENGUMUMAN BERANDA -->
       <div class="card">
-        <h3><i class="fa-solid fa-pen-to-square" style="color:var(--primary);"></i> Input Presensi Murid</h3>
-        <label>Pilih Murid:</label>
-        <select id="admAbsenMurid">
-          <option value="">-- Pilih Nama Murid --</option>
-        </select>
-        
-        <label>Catatan Aktivitas / Materi Belajar:</label>
-        <input type="text" id="admAbsenNote" placeholder="Misal: Latihan perkalian & membaca hal 12">
-        
-        <label>Foto Kegiatan (Kamera / Galeri):</label>
-        <input type="file" id="admAbsenFoto" accept="image/*" capture="environment" onchange="previewImage(this)">
-        <img id="imgPreview" style="display:none; width:100%; max-height:200px; object-fit:cover; margin-top:12px; border-radius:8px;">
-
-        <button class="btn btn-primary" onclick="simpanPresensiAdmin()">Simpan Presensi</button>
+        <h3><i class="fa-solid fa-bullhorn" style="color:var(--accent);"></i> Update Pengumuman Beranda & Wali</h3>
+        <div class="form-group">
+          <label>Teks Pengumuman / Pemberitahuan:</label>
+          <textarea id="admPengumumanInput" rows="2" placeholder="Tulis pengumuman baru untuk ditampilkan di Beranda & Portal Wali..."></textarea>
+        </div>
+        <button class="btn btn-warning" onclick="simpanPengumumanAdmin()" style="margin-top:8px;">
+          <i class="fa-solid fa-paper-plane"></i> Terbitkan Pengumuman
+        </button>
       </div>
 
+      <!-- FITUR 2: INPUT PRESENSI (ABSEN CEPAT & ABSEN FOTO) -->
       <div class="card">
-        <h3><i class="fa-solid fa-user-plus" style="color:var(--secondary);"></i> Pendaftaran Murid Baru</h3>
-        <label>Nama Lengkap Murid:</label>
-        <input type="text" id="addNama" placeholder="Nama Murid">
-        <label>PIN Rahasia Wali (4 Digit):</label>
-        <input type="password" id="addPin" placeholder="Contoh: 1234">
-        <label>Tarif per Sesi (Rp):</label>
-        <input type="number" id="addTarif" placeholder="50000">
-        <label>Cita-cita / Impian Anak:</label>
-        <input type="text" id="addImpian" placeholder="Contoh: Dokter / Astronot">
-        <button class="btn" onclick="tambahMuridAdmin()">Daftarkan Murid</button>
+        <h3><i class="fa-solid fa-calendar-check" style="color:var(--primary);"></i> Input Presensi Murid</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Pilih Murid:</label>
+            <select id="admAbsenMurid"><option value="">-- Pilih Murid --</option></select>
+          </div>
+          <div class="form-group">
+            <label>Catatan Aktivitas / Materi:</label>
+            <input type="text" id="admAbsenNote" placeholder="Misal: Belajar Matematika Bab 2">
+          </div>
+        </div>
+        
+        <div class="form-group" style="margin-bottom:12px;">
+          <label>Foto Kegiatan (Opsional):</label>
+          <input type="file" id="admAbsenFoto" accept="image/*" capture="environment" onchange="previewImage(this)">
+          <img id="imgPreview" style="display:none; width:100%; max-height:180px; object-fit:cover; margin-top:8px; border-radius:8px;">
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-primary" onclick="simpanPresensiAdmin(false)"><i class="fa-solid fa-bolt"></i> Absen Cepat</button>
+          <button class="btn btn-success" onclick="simpanPresensiAdmin(true)"><i class="fa-solid fa-camera"></i> Absen + Simpan Foto</button>
+        </div>
+      </div>
+
+      <!-- FITUR 3: PENDAFTARAN MURID BARU -->
+      <div class="card">
+        <h3><i class="fa-solid fa-user-plus" style="color:var(--secondary);"></i> Tambah / Daftar Murid Baru</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nama Lengkap:</label>
+            <input type="text" id="addNama" placeholder="Nama murid">
+          </div>
+          <div class="form-group">
+            <label>PIN Wali (4 Digit):</label>
+            <input type="password" id="addPin" placeholder="Contoh: 1234">
+          </div>
+          <div class="form-group">
+            <label>Tarif per Sesi (Rp):</label>
+            <input type="number" id="addTarif" placeholder="50000">
+          </div>
+          <div class="form-group">
+            <label>Cita-cita Anak:</label>
+            <input type="text" id="addImpian" placeholder="Dokter / Pilot">
+          </div>
+        </div>
+        <button class="btn btn-success btn-block" onclick="tambahMuridAdmin()">Daftarkan Murid Baru</button>
+      </div>
+
+      <!-- FITUR 4: KELOLA & EDIT / HAPUS DATA MURID -->
+      <div class="card">
+        <h3><i class="fa-solid fa-users-gear" style="color:var(--primary);"></i> Kelola Data Murid (Ubah / Hapus)</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Nama Murid</th>
+                <th>PIN Wali</th>
+                <th>Tarif/Sesi</th>
+                <th>Titipan (DP)</th>
+                <th>Pesan Pengajar</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tblMuridBody">
+              <tr><td colspan="6" style="text-align:center;">Memuat data murid...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- FITUR 5: HISTORI PRESENSI & HAPUS PRESENSI -->
+      <div class="card">
+        <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent);"></i> Histori Presensi Terkini</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>Nama Murid</th>
+                <th>Catatan</th>
+                <th>Foto</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tblHistoriBody">
+              <tr><td colspan="5" style="text-align:center;">Memuat histori presensi...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
   </div>
 
-  <!-- MODAL LOGIN WALI -->
+  <!-- POPUP MODAL WALI MURID -->
   <div id="modalWali" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalWali')">&times;</span>
       <h3 style="margin-top:0;"><i class="fa-solid fa-lock" style="color:var(--primary);"></i> Login Wali Murid</h3>
-      <label>Pilih Nama Anak:</label>
-      <select id="selectMuridWali">
-        <option value="">-- Pilih Anak --</option>
-      </select>
-      <label>PIN Rahasia Wali:</label>
-      <input type="password" id="pinWali" placeholder="Masukkan PIN">
-      <button class="btn btn-primary" onclick="loginWali()">Masuk Portal Wali</button>
+      <div class="form-group" style="margin-bottom:10px;">
+        <label>Pilih Nama Anak:</label>
+        <select id="selectMuridWali"><option value="">-- Pilih Anak --</option></select>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label>PIN Rahasia Wali:</label>
+        <input type="password" id="pinWali" placeholder="Masukkan PIN">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="loginWali()">Masuk Portal Wali</button>
     </div>
   </div>
 
-  <!-- MODAL LOGIN ADMIN -->
+  <!-- POPUP MODAL ADMIN -->
   <div id="modalAdmin" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalAdmin')">&times;</span>
-      <h3 style="margin-top:0;"><i class="fa-solid fa-shield-halved" style="color:var(--accent);"></i> Akses Pengelola</h3>
-      <label>Password Admin:</label>
-      <input type="password" id="passAdmin" placeholder="Masukkan Password">
-      <button class="btn btn-primary" onclick="loginAdmin()">Masuk Panel Admin</button>
+      <h3 style="margin-top:0;"><i class="fa-solid fa-shield-halved" style="color:var(--accent);"></i> Akses Pengelola Admin</h3>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label>Password Admin:</label>
+        <input type="password" id="passAdmin" placeholder="Masukkan Password">
+      </div>
+      <button class="btn btn-warning btn-block" onclick="loginAdmin()">Masuk Panel Admin</button>
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- POPUP MODAL EDIT MURID -->
+  <div id="modalEditMurid" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('modalEditMurid')">&times;</span>
+      <h3 style="margin-top:0;"><i class="fa-solid fa-user-pen"></i> Ubah Data Murid</h3>
+      <input type="hidden" id="editKey">
+      <div class="form-group" style="margin-bottom:8px;">
+        <label>Nama Murid:</label>
+        <input type="text" id="editNama">
+      </div>
+      <div class="form-group" style="margin-bottom:8px;">
+        <label>PIN Wali:</label>
+        <input type="text" id="editPin">
+      </div>
+      <div class="form-group" style="margin-bottom:8px;">
+        <label>Tarif per Sesi (Rp):</label>
+        <input type="number" id="editTarif">
+      </div>
+      <div class="form-group" style="margin-bottom:8px;">
+        <label>Titipan / DP (Rp):</label>
+        <input type="number" id="editTitipan">
+      </div>
+      <div class="form-group" style="margin-bottom:8px;">
+        <label>Cita-cita:</label>
+        <input type="text" id="editImpian">
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>Pesan untuk Wali:</label>
+        <input type="text" id="editPesan">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="simpanEditMurid()">Simpan Perubahan</button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIKASI -->
   <div id="toast"></div>
 
   <script>
     // ⚠️ GANTI DENGAN URL DEPLOYMENT GOOGLE APPS SCRIPT ANDA
-    const API_URL = "https://script.google.com/macros/s/AKfycbyO9e6rIQ3ddGmp8XKs3GZRnaqBgG-MiL3wjCatnpD1ZBkn-PW1QT5mT2kQ28pSNhUKIQ/exec"; 
+    const API_URL = "https://script.google.com/macros/s/AKfycbxGSuZHy73tafp3oWO2NRmrsMAmcCANjNwLg6NGEMUqyN08EI8jCZkMm06hKyjaUE1BVw/exec"; 
 
-    // STATE LOKAL
-    let dbData = { murid: {}, presensi: [] };
+    let dbData = { murid: {}, presensi: [], pengumuman: "" };
     let currentWaliKey = null;
     let isAdminLoggedIn = false;
     let currentFotoBase64 = "";
 
-    window.onload = function() {
-      loadData();
-    };
+    window.onload = function() { loadData(); };
 
-    // LOAD DATA DARI GOOGLE SHEETS
     async function loadData() {
       try {
         const res = await fetch(API_URL);
         const data = await res.json();
         dbData = data;
-        updatePublicStats();
-        populateMuridDropdowns();
         
+        renderPublic();
+        populateDropdowns();
+        if (isAdminLoggedIn) renderAdminTables();
         if (currentWaliKey) renderJurnalWali(currentWaliKey);
       } catch(e) {
         console.error("Gagal sinkronisasi data:", e);
       }
     }
 
-    // UPDATE DOKUMEN PUBLIC & DROPDOWN
-    function updatePublicStats() {
+    function renderPublic() {
       const muridKeys = Object.keys(dbData.murid || {});
       document.getElementById('pubTotalMurid').textContent = muridKeys.length + " Anak";
       document.getElementById('pubTotalPresensi').textContent = (dbData.presensi || []).length + " Sesi";
+
+      // Display Notice
+      const noticeText = dbData.pengumuman || "";
+      const box = document.getElementById('pubNoticeBox');
+      const waliBox = document.getElementById('waliNoticeBox');
+
+      if (noticeText.trim() !== "") {
+        document.getElementById('pubNoticeText').textContent = noticeText;
+        document.getElementById('waliNoticeText').textContent = noticeText;
+        box.style.display = "block";
+        waliBox.style.display = "block";
+      } else {
+        box.style.display = "none";
+        waliBox.style.display = "none";
+      }
     }
 
-    function populateMuridDropdowns() {
+    function populateDropdowns() {
       const selectWali = document.getElementById('selectMuridWali');
       const selectAdmin = document.getElementById('admAbsenMurid');
-      
       selectWali.innerHTML = '<option value="">-- Pilih Anak --</option>';
-      selectAdmin.innerHTML = '<option value="">-- Pilih Nama Murid --</option>';
+      selectAdmin.innerHTML = '<option value="">-- Pilih Murid --</option>';
 
       for (let key in dbData.murid) {
         const m = dbData.murid[key];
-        const opt1 = new Option(m.nama, key);
-        const opt2 = new Option(m.nama, key);
-        selectWali.add(opt1);
-        selectAdmin.add(opt2);
+        selectWali.add(new Option(m.nama, key));
+        selectAdmin.add(new Option(m.nama, key));
       }
     }
 
-    // SWITCH VIEW NAVIGATION
     function showView(viewName) {
       document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-      
-      if (viewName === 'public') {
-        document.getElementById('viewPublic').classList.add('active');
-      } else if (viewName === 'wali') {
-        if (!currentWaliKey) { openModal('modalWali'); return; }
-        document.getElementById('viewWali').classList.add('active');
+      if (viewName === 'public') document.getElementById('viewPublic').classList.add('active');
+      else if (viewName === 'wali') {
+        if (!currentWaliKey) openModal('modalWali');
+        else document.getElementById('viewWali').classList.add('active');
       } else if (viewName === 'admin') {
-        if (!isAdminLoggedIn) { openModal('modalAdmin'); return; }
-        document.getElementById('viewAdmin').classList.add('active');
+        if (!isAdminLoggedIn) openModal('modalAdmin');
+        else {
+          document.getElementById('viewAdmin').classList.add('active');
+          renderAdminTables();
+        }
       }
     }
 
-    // MODAL CONTROL
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-    // LOGIN / LOGOUT AUTHENTICATION
+    // AUTHENTICATION
     function loginWali() {
       const key = document.getElementById('selectMuridWali').value;
       const pin = document.getElementById('pinWali').value;
@@ -241,39 +376,36 @@
         renderJurnalWali(key);
         closeModal('modalWali');
         showView('wali');
-        showToast("Selamat datang, Wali dari " + m.nama);
-      } else {
-        alert("PIN Rahasia Salah atau Murid Belum Dipilih!");
-      }
+        showToast("Selamat datang Wali dari " + m.nama);
+      } else { alert("PIN Rahasia Salah atau Anak belum dipilih!"); }
     }
 
     function logoutWali() {
       currentWaliKey = null;
       document.getElementById('pinWali').value = "";
       showView('public');
-      showToast("Berhasil Keluar Portal Wali");
+      showToast("Berhasil Keluar");
     }
 
     function loginAdmin() {
       const pass = document.getElementById('passAdmin').value;
-      if (pass === "1234") { // Password default admin
+      if (pass === "1234") { // Password Default Admin
         isAdminLoggedIn = true;
         closeModal('modalAdmin');
         showView('admin');
+        renderAdminTables();
         showToast("Login Pengelola Berhasil!");
-      } else {
-        alert("Password Admin Salah!");
-      }
+      } else { alert("Password Admin Salah!"); }
     }
 
     function logoutAdmin() {
       isAdminLoggedIn = false;
       document.getElementById('passAdmin').value = "";
       showView('public');
-      showToast("Keluar dari Panel Admin");
+      showToast("Keluar Admin");
     }
 
-    // RENDER JURNAL WALI
+    // RENDER WALI
     function renderJurnalWali(key) {
       const m = dbData.murid[key];
       if (!m) return;
@@ -282,119 +414,188 @@
       document.getElementById('waliImpian').textContent = m.impian || '-';
       document.getElementById('waliPesan').textContent = `"${m.pesan || 'Tetap semangat!'}"`;
 
-      const userPresensi = (dbData.presensi || [])
-        .filter(p => String(p.key) === String(key))
-        .reverse();
-
+      const userPresensi = (dbData.presensi || []).filter(p => String(p.key) === String(key)).reverse();
       const sesi = userPresensi.length;
       const tarif = parseInt(m.tarif || 0);
       const total = sesi * tarif;
       const titipan = parseInt(m.titipan || 0);
       const sisa = total - titipan;
 
-      document.getElementById('waliSesiCount').textContent = `Sesi Terjalani: ${sesi} Kali`;
+      document.getElementById('waliSesiCount').textContent = `Total Pembelajaran: ${sesi} Sesi`;
       document.getElementById('waliTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
       document.getElementById('waliTitipan').textContent = `Rp ${titipan.toLocaleString('id-ID')}`;
       document.getElementById('waliSisa').textContent = `Rp ${sisa.toLocaleString('id-ID')}`;
 
       const list = document.getElementById('waliPresensiList');
       list.innerHTML = '';
-
       if (userPresensi.length === 0) {
-        list.innerHTML = '<p style="color:#888; font-size:13px;">Belum ada catatan presensi.</p>';
+        list.innerHTML = '<p style="color:#888;">Belum ada riwayat presensi.</p>';
       } else {
         userPresensi.forEach(p => {
           const div = document.createElement('div');
           div.className = 'timeline-item';
-          let htmlFoto = p.foto ? `<img src="${p.foto}" class="img-presensi" alt="Foto Kegiatan">` : '';
-          
+          let imgHtml = p.foto ? `<img src="${p.foto}" class="img-presensi">` : '';
           div.innerHTML = `
-            <span class="badge-date">⏰ ${p.waktu}</span>
-            <div style="font-weight:bold; font-size:14px; margin-top:4px;">${p.catatan}</div>
-            ${htmlFoto}
+            <div style="font-size:0.75rem; color:#64748b; font-weight:bold;">⏰ ${p.waktu}</div>
+            <div style="font-weight:bold; margin-top:2px;">${p.catatan}</div>
+            ${imgHtml}
           `;
           list.appendChild(div);
         });
       }
     }
 
-    // INPUT PRESENSI ADMIN (Dengan Optimistic Update)
-    async function simpanPresensiAdmin() {
+    // RENDER ADMIN TABLES
+    function renderAdminTables() {
+      // Table Murid
+      const tblM = document.getElementById('tblMuridBody');
+      tblM.innerHTML = '';
+      for (let k in dbData.murid) {
+        const m = dbData.murid[k];
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><b>${m.nama}</b><br><small style="color:#64748b">${m.impian||''}</small></td>
+          <td><code>${m.pin}</code></td>
+          <td>Rp ${parseInt(m.tarif||0).toLocaleString('id-ID')}</td>
+          <td>Rp ${parseInt(m.titipan||0).toLocaleString('id-ID')}</td>
+          <td><small>${m.pesan||'-'}</small></td>
+          <td>
+            <button class="btn btn-warning" style="padding:4px 8px; font-size:12px;" onclick="bukaModalEdit('${k}')"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-danger" style="padding:4px 8px; font-size:12px;" onclick="hapusMuridAdmin('${k}')"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        `;
+        tblM.appendChild(tr);
+      }
+
+      // Table Histori Presensi
+      const tblH = document.getElementById('tblHistoriBody');
+      tblH.innerHTML = '';
+      const listH = [...(dbData.presensi || [])].reverse();
+      listH.forEach(p => {
+        const m = dbData.murid[p.key] || { nama: 'Murid Dihapus' };
+        const tr = document.createElement('tr');
+        const fotoBtn = p.foto ? `<a href="${p.foto}" target="_blank">Lihat Foto</a>` : 'Tanpa Foto';
+        tr.innerHTML = `
+          <td><small>${p.waktu}</small></td>
+          <td><b>${m.nama}</b></td>
+          <td>${p.catatan}</td>
+          <td>${fotoBtn}</td>
+          <td>
+            <button class="btn btn-danger" style="padding:4px 8px; font-size:12px;" onclick="hapusPresensiAdmin(${p.rowId})"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        `;
+        tblH.appendChild(tr);
+      });
+    }
+
+    // ADMIN ACTIONS
+    async function simpanPengumumanAdmin() {
+      const teks = document.getElementById('admPengumumanInput').value;
+      showToast("Menerbitkan pengumuman...");
+      await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'simpanPengumuman', teks: teks }) });
+      dbData.pengumuman = teks;
+      renderPublic();
+      showToast("Pengumuman Terbit!");
+    }
+
+    async function simpanPresensiAdmin(withFoto) {
       const key = document.getElementById('admAbsenMurid').value;
-      const note = document.getElementById('admAbsenNote').value || "Hadir Sesi Belajar";
-      
-      if (!key) { alert("Pilih nama murid terlebih dahulu!"); return; }
+      const note = document.getElementById('admAbsenNote').value || "Hadir Belajar";
+      if (!key) return alert("Pilih murid terlebih dahulu!");
 
       const now = new Date();
-      const waktuStr = now.toLocaleDateString('id-ID', {weekday:'short', day:'numeric', month:'short'}) + " - " + now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+      const waktuStr = now.toLocaleDateString('id-ID', {weekday:'short', day:'numeric', month:'short'}) + " " + now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+      const fotoKirim = withFoto ? currentFotoBase64 : "";
 
-      const presensiBaru = {
-        key: String(key),
-        waktu: waktuStr,
-        catatan: note,
-        foto: currentFotoBase64
-      };
+      showToast("Mencatat presensi...");
 
-      // 1. Update instan ke tampilan lokal
-      if (!dbData.presensi) dbData.presensi = [];
-      dbData.presensi.push(presensiBaru);
+      await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'absen', key: String(key), waktu: waktuStr, catatan: note, foto: fotoKirim })
+      });
 
-      if (currentWaliKey && String(currentWaliKey) === String(key)) {
-        renderJurnalWali(currentWaliKey);
-      }
-      updatePublicStats();
-
-      // Reset Form Input
       document.getElementById('admAbsenNote').value = "";
       document.getElementById('admAbsenFoto').value = "";
       document.getElementById('imgPreview').style.display = "none";
-      const fotoKirim = currentFotoBase64;
       currentFotoBase64 = "";
 
-      showToast("Presensi Berhasil Dicatat!");
-
-      // 2. Transmisi background ke Google Sheets
-      try {
-        await fetch(API_URL, {
-          method: 'POST',
-          body: JSON.stringify({ action: 'absen', key: String(key), waktu: waktuStr, catatan: note, foto: fotoKirim })
-        });
-        loadData();
-      } catch(e) {
-        console.error("Gagal sinkronisasi background:", e);
-      }
+      showToast("Presensi Berhasil!");
+      loadData();
     }
 
-    // TAMBAH MURID BARU ADMIN
     async function tambahMuridAdmin() {
       const nama = document.getElementById('addNama').value;
       const pin = document.getElementById('addPin').value;
       const tarif = document.getElementById('addTarif').value;
       const impian = document.getElementById('addImpian').value;
 
-      if (!nama || !pin) { alert("Nama dan PIN wajib diisi!"); return; }
+      if (!nama || !pin) return alert("Nama & PIN wajib diisi!");
 
-      showToast("Mendaftarkan murid baru...");
+      showToast("Mendaftarkan murid...");
+      await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'tambahMurid', nama: nama, pin: pin, tarif: tarif, impian: impian })
+      });
 
-      try {
-        await fetch(API_URL, {
-          method: 'POST',
-          body: JSON.stringify({ action: 'tambahMurid', nama: nama, pin: pin, tarif: tarif, impian: impian })
-        });
-        
-        document.getElementById('addNama').value = "";
-        document.getElementById('addPin').value = "";
-        document.getElementById('addTarif').value = "";
-        document.getElementById('addImpian').value = "";
+      document.getElementById('addNama').value = "";
+      document.getElementById('addPin').value = "";
+      document.getElementById('addTarif').value = "";
+      document.getElementById('addImpian').value = "";
 
-        showToast("Murid Berhasil Terdaftar!");
-        await loadData();
-      } catch(e) {
-        alert("Gagal menambahkan murid.");
-      }
+      showToast("Murid Terdaftar!");
+      loadData();
     }
 
-    // HELPER: PREVIEW & KOMPRESI FOTO
+    function bukaModalEdit(key) {
+      const m = dbData.murid[key];
+      if (!m) return;
+      document.getElementById('editKey').value = key;
+      document.getElementById('editNama').value = m.nama;
+      document.getElementById('editPin').value = m.pin;
+      document.getElementById('editTarif').value = m.tarif || 0;
+      document.getElementById('editTitipan').value = m.titipan || 0;
+      document.getElementById('editImpian').value = m.impian || "";
+      document.getElementById('editPesan').value = m.pesan || "";
+      openModal('modalEditMurid');
+    }
+
+    async function simpanEditMurid() {
+      const key = document.getElementById('editKey').value;
+      const payload = {
+        action: 'editMurid',
+        key: key,
+        nama: document.getElementById('editNama').value,
+        pin: document.getElementById('editPin').value,
+        tarif: document.getElementById('editTarif').value,
+        titipan: document.getElementById('editTitipan').value,
+        impian: document.getElementById('editImpian').value,
+        pesan: document.getElementById('editPesan').value
+      };
+
+      showToast("Menyimpan data...");
+      closeModal('modalEditMurid');
+      await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
+      showToast("Data Murid Diperbarui!");
+      loadData();
+    }
+
+    async function hapusMuridAdmin(key) {
+      if (!confirm("Yakin ingin menghapus data murid ini?")) return;
+      showToast("Menghapus murid...");
+      await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'hapusMurid', key: key }) });
+      showToast("Murid Dihapus!");
+      loadData();
+    }
+
+    async function hapusPresensiAdmin(rowId) {
+      if (!confirm("Hapus catatan presensi ini?")) return;
+      showToast("Menghapus presensi...");
+      await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'hapusAbsen', rowId: rowId }) });
+      showToast("Presensi Dihapus!");
+      loadData();
+    }
+
+    // UTILITIES
     function previewImage(input) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -408,44 +609,35 @@
       }
     }
 
-    // KAMUS & GAME FEATURE
-    const dictionary = { 
-      "kucing":"Cat 🐱", "buku":"Book 📖", "rumah":"House 🏠", 
-      "pensil":"Pencil ✏️", "sekolah":"School 🏫", "guru":"Teacher 🧑‍🏫" 
-    };
+    const dictionary = { "kucing":"Cat 🐱", "buku":"Book 📖", "rumah":"House 🏠", "pensil":"Pencil ✏️" };
     function cariKamus(){
-      const input=document.getElementById('searchKamus').value.toLowerCase().trim();
-      const res=document.getElementById('kamusResult');
-      if(!input){ res.innerHTML="💡 Ketik kata di atas untuk memulai pencarian."; return; }
-      res.innerHTML=dictionary[input]?`Terjemahan: <b style="color:green;">${dictionary[input]}</b>`:"❌ Kata belum ditemukan dalam kamus mini.";
+      const val = document.getElementById('searchKamus').value.toLowerCase().trim();
+      const res = document.getElementById('kamusResult');
+      if(!val) return res.innerHTML="💡 Ketik kata di atas untuk mencari.";
+      res.innerHTML = dictionary[val] ? `Terjemahan: <b style="color:green;">${dictionary[val]}</b>` : "❌ Kata tidak ditemukan.";
     }
 
     function cekJawaban(){
-      const val=parseInt(document.getElementById('jawabGame').value);
-      const res=document.getElementById('gameResult');
-      if(val===8){ showToast("🎉 Jawabanmu Benar!"); res.innerHTML="<span style='color:green;'>Benar Tepat!</span>"; }
-      else { showToast("❌ Coba hitung lagi ya!"); res.innerHTML="<span style='color:red;'>Kurang Tepat!</span>"; }
+      const val = parseInt(document.getElementById('jawabGame').value);
+      const res = document.getElementById('gameResult');
+      if(val === 8) res.innerHTML="<span style='color:green;'>🎉 Benar Tepat!</span>";
+      else res.innerHTML="<span style='color:red;'>❌ Coba lagi!</span>";
     }
 
     function showToast(msg){
-      const toast=document.getElementById('toast');
-      toast.textContent=msg;
-      toast.style.display="block";
-      setTimeout(()=>toast.style.display="none",3000);
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = "block";
+      setTimeout(() => toast.style.display = "none", 3000);
     }
 
-    // GRAPH DATA VISUALIZATION
+    // CHART
     const ctx = document.getElementById('chartPresensi').getContext('2d');
     new Chart(ctx, {
       type: 'bar',
       data: {
         labels: ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'],
-        datasets: [{
-          label: 'Total Sesi',
-          data: [15, 22, 18, 26],
-          backgroundColor: '#10b981',
-          borderRadius: 6
-        }]
+        datasets: [{ label: 'Total Sesi', data: [12, 19, 15, 22], backgroundColor: '#10b981', borderRadius: 6 }]
       },
       options: { responsive: true, plugins: { legend: { display: false } } }
     });
