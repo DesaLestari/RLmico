@@ -1,0 +1,129 @@
+:root {
+  --primary: #3b82f6;   /* biru muda */
+  --accent: #facc15;    /* kuning cerah */
+  --secondary: #10b981; /* hijau toska */
+  --warm: #fb923c;      /* oranye lembut */
+  --text-dark: #1e293b;
+  --bg-light: #f8fafc;
+}
+
+/* Struktur umum */
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg-light);
+  margin: 0;
+  color: var(--text-dark);
+}
+
+/* Header dan navigasi */
+.header-bg {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 20px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: auto;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav-links li a:hover {
+  color: var(--accent);
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  margin-top: 20px;
+}
+.hero h1 {
+  font-size: 28px;
+  font-weight: 800;
+}
+.hero p {
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+/* Tombol */
+.btn {
+  background: var(--accent);
+  color: var(--text-dark);
+  font-weight: 700;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .2s;
+}
+.btn:hover {
+  background: var(--warm);
+  color: white;
+}
+
+/* Card dan grid */
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 15px;
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: .2s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border: 2px solid var(--accent);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.stat-card h2 {
+  color: var(--secondary);
+  font-size: 24px;
+  margin: 0;
+}
+
+/* Toast */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--warm);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: none;
+}
+
+/* Responsif */
+@media(max-width:600px){
+  .navbar { flex-direction: column; }
+  .nav-links { flex-direction: column; gap: 10px; }
+}
