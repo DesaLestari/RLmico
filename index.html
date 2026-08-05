@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <!-- Header & Navigasi Utama -->
+  <!-- Header & Navigasi -->
   <header class="header-bg">
     <nav class="navbar">
       <div class="brand"><i class="fa-solid fa-graduation-cap"></i> Rubel Lestari</div>
@@ -29,21 +29,19 @@
 
   <div class="container">
     
-    <!-- 1. BERANDA / PUBLIC VIEW (DESAIN BARU) -->
+    <!-- 1. BERANDA / PUBLIC VIEW -->
     <section id="viewPublic" class="view-section active">
       
-      <!-- BANNER PENGUMUMAN BESAR & MENCOLOK -->
+      <!-- BANNER PENGUMUMAN BESAR -->
       <div id="pubNoticeBox" class="announcement-banner" style="display:none;">
         <div class="announcement-header">
           <i class="fa-solid fa-bullhorn fa-bounce" style="font-size:1.4rem;"></i>
           <span>PENGUMUMAN PENTING</span>
         </div>
-        <div id="pubNoticeText" class="announcement-body">
-          Memuat informasi terbaru...
-        </div>
+        <div id="pubNoticeText" class="announcement-body">Memuat informasi...</div>
       </div>
 
-      <!-- PROFIL & DESKRIPSI BIMBEL -->
+      <!-- PROFIL BIMBEL -->
       <div class="card">
         <h3><i class="fa-solid fa-house-chimney-heart"></i> Rubel Lestari Friendship 🏡✨</h3>
         
@@ -57,8 +55,8 @@
         </p>
 
         <div style="background:#f8fafc; padding:14px; border-radius:10px; font-size:0.9rem; border:1px solid #e2e8f0;">
-          <div style="margin-bottom:6px;"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> <b>Lokasi:</b> [Isi Alamat / Desa Lestari]</div>
-          <div><i class="fa-brands fa-whatsapp" style="color:#16a34a; font-weight:bold;"></i> <b>Konsultasi & Uji Coba Gratis:</b> <a href="https://wa.me/6281234567890" target="_blank" style="color:var(--primary); font-weight:bold; text-decoration:none;">Hubungi Kami Via WhatsApp</a></div>
+          <div style="margin-bottom:6px;"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> <b>Lokasi:</b> <span id="pubLokasi">Memuat alamat...</span></div>
+          <div><i class="fa-brands fa-whatsapp" style="color:#16a34a; font-weight:bold;"></i> <b>Konsultasi & Uji Coba Gratis:</b> <a id="pubWaLink" href="#" target="_blank" style="color:var(--primary); font-weight:bold; text-decoration:none;">Hubungi Kami Via WhatsApp</a></div>
         </div>
       </div>
 
@@ -82,7 +80,6 @@
         <h3><i class="fa-solid fa-chart-column"></i> Kehadiran Pembelajaran Bulanan</h3>
         <canvas id="chartPresensi" height="100"></canvas>
       </div>
-
     </section>
 
     <!-- 2. WALI MURID PORTAL VIEW -->
@@ -92,19 +89,20 @@
         <button class="btn btn-danger" onclick="logoutWali()">Keluar</button>
       </div>
 
-      <div id="waliNoticeBox" class="notice-box" style="display:none;">
-        <i class="fa-solid fa-bullhorn" style="color:var(--primary);"></i> <span id="waliNoticeText"></span>
+      <div id="waliNoticeBox" class="announcement-banner" style="display:none; margin-bottom:16px;">
+        <div class="announcement-header"><i class="fa-solid fa-bullhorn"></i> PENGUMUMAN</div>
+        <div id="waliNoticeText" class="announcement-body"></div>
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-address-card" style="color:var(--primary);"></i> Profil & Catatan Pengajar</h3>
+        <h3><i class="fa-solid fa-address-card"></i> Profil & Catatan Pengajar</h3>
         <p style="margin:4px 0;">Nama Anak: <b id="waliNama">-</b></p>
         <p style="margin:4px 0;">Cita-cita: <b id="waliImpian" style="color:var(--secondary);">-</b></p>
         <p style="margin:4px 0;">Catatan Khusus: <i id="waliPesan">-</i></p>
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-receipt" style="color:var(--accent);"></i> Rincian Administrasi</h3>
+        <h3><i class="fa-solid fa-receipt"></i> Rincian Administrasi</h3>
         <p id="waliSesiCount" style="margin:4px 0;">Total Sesi: 0 Sesi</p>
         <p style="margin:4px 0;">Total Tagihan: <b id="waliTotal">Rp 0</b></p>
         <p style="margin:4px 0;">DP / Titipan: <b id="waliTitipan" style="color:green;">Rp 0</b></p>
@@ -112,7 +110,7 @@
       </div>
 
       <div class="card">
-        <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--secondary);"></i> Riwayat & Foto Kegiatan</h3>
+        <h3><i class="fa-solid fa-clock-rotate-left"></i> Riwayat & Foto Kegiatan</h3>
         <div id="waliPresensiList">Memuat data...</div>
       </div>
     </section>
@@ -124,19 +122,37 @@
         <button class="btn btn-danger" onclick="logoutAdmin()">Keluar Admin</button>
       </div>
 
-      <!-- FITUR 1: UPDATE PENGUMUMAN BERANDA -->
+      <!-- EDIT ALAMAT & WHATSAPP BIMBEL -->
+      <div class="card">
+        <h3><i class="fa-solid fa-sliders" style="color:var(--primary);"></i> Pengaturan Alamat & WhatsApp Bimbel</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Alamat / Lokasi Bimbel:</label>
+            <input type="text" id="admLokasiInput" placeholder="Contoh: Jl. Mawar No. 12, Desa Lestari">
+          </div>
+          <div class="form-group">
+            <label>Nomor WhatsApp Admin (Gunakan format 62...):</label>
+            <input type="text" id="admWaInput" placeholder="Contoh: 6281234567890">
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="simpanProfilAdmin()">
+          <i class="fa-solid fa-floppy-disk"></i> Simpan Alamat & WA
+        </button>
+      </div>
+
+      <!-- UPDATE PENGUMUMAN BERANDA -->
       <div class="card">
         <h3><i class="fa-solid fa-bullhorn" style="color:var(--accent);"></i> Update Pengumuman Beranda & Wali</h3>
         <div class="form-group">
           <label>Teks Pengumuman / Pemberitahuan:</label>
-          <textarea id="admPengumumanInput" rows="2" placeholder="Tulis pengumuman baru untuk ditampilkan di Beranda & Portal Wali..."></textarea>
+          <textarea id="admPengumumanInput" rows="2" placeholder="Tulis pengumuman baru..."></textarea>
         </div>
         <button class="btn btn-warning" onclick="simpanPengumumanAdmin()" style="margin-top:8px;">
           <i class="fa-solid fa-paper-plane"></i> Terbitkan Pengumuman
         </button>
       </div>
 
-      <!-- FITUR 2: INPUT PRESENSI (ABSEN CEPAT & ABSEN FOTO) -->
+      <!-- INPUT PRESENSI -->
       <div class="card">
         <h3><i class="fa-solid fa-calendar-check" style="color:var(--primary);"></i> Input Presensi Murid</h3>
         <div class="form-grid">
@@ -162,9 +178,9 @@
         </div>
       </div>
 
-      <!-- FITUR 3: PENDAFTARAN MURID BARU -->
+      <!-- PENDAFTARAN MURID BARU -->
       <div class="card">
-        <h3><i class="fa-solid fa-user-plus" style="color:var(--secondary);"></i> Tambah / Daftar Murid Baru</h3>
+        <h3><i class="fa-solid fa-user-plus" style="color:var(--secondary);"></i> Tambah Murid Baru</h3>
         <div class="form-grid">
           <div class="form-group">
             <label>Nama Lengkap:</label>
@@ -186,7 +202,7 @@
         <button class="btn btn-success btn-block" onclick="tambahMuridAdmin()">Daftarkan Murid Baru</button>
       </div>
 
-      <!-- FITUR 4: KELOLA & EDIT / HAPUS DATA MURID -->
+      <!-- KELOLA DATA MURID -->
       <div class="card">
         <h3><i class="fa-solid fa-users-gear" style="color:var(--primary);"></i> Kelola Data Murid (Ubah / Hapus)</h3>
         <div class="table-responsive">
@@ -208,7 +224,7 @@
         </div>
       </div>
 
-      <!-- FITUR 5: HISTORI PRESENSI & HAPUS PRESENSI -->
+      <!-- HISTORI PRESENSI -->
       <div class="card">
         <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent);"></i> Histori Presensi Terkini</h3>
         <div class="table-responsive">
@@ -232,7 +248,7 @@
 
   </div>
 
-  <!-- POPUP MODAL WALI MURID -->
+  <!-- POPUP MODALS -->
   <div id="modalWali" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalWali')">&times;</span>
@@ -249,7 +265,6 @@
     </div>
   </div>
 
-  <!-- POPUP MODAL ADMIN -->
   <div id="modalAdmin" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalAdmin')">&times;</span>
@@ -262,7 +277,6 @@
     </div>
   </div>
 
-  <!-- POPUP MODAL EDIT MURID -->
   <div id="modalEditMurid" class="modal-overlay">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('modalEditMurid')">&times;</span>
@@ -296,14 +310,13 @@
     </div>
   </div>
 
-  <!-- TOAST NOTIFIKASI -->
   <div id="toast"></div>
 
   <script>
     // ⚠️ GANTI DENGAN URL DEPLOYMENT GOOGLE APPS SCRIPT ANDA
-    const API_URL = "https://script.google.com/macros/s/AKfycbxGSuZHy73tafp3oWO2NRmrsMAmcCANjNwLg6NGEMUqyN08EI8jCZkMm06hKyjaUE1BVw/exec"; 
+    const API_URL = "https://script.google.com/macros/s/AKfycbys8iPlgyDmA4qHSaVlrXw8e-dQ9mfyS-SqjHwz57AnFxCxTeJEzXM2edIRtwQT2vBBrw/exec"; 
 
-    let dbData = { murid: {}, presensi: [], pengumuman: "" };
+    let dbData = { murid: {}, presensi: [], pengumuman: "", lokasi: "", wa: "" };
     let currentWaliKey = null;
     let isAdminLoggedIn = false;
     let currentFotoBase64 = "";
@@ -329,6 +342,19 @@
       const muridKeys = Object.keys(dbData.murid || {});
       document.getElementById('pubTotalMurid').textContent = muridKeys.length + " Anak";
       document.getElementById('pubTotalPresensi').textContent = (dbData.presensi || []).length + " Sesi";
+
+      // Render Lokasi & WA
+      const lokasi = dbData.lokasi || "Desa Lestari";
+      const wa = dbData.wa || "6281234567890";
+      document.getElementById('pubLokasi').textContent = lokasi;
+      
+      const waLink = document.getElementById('pubWaLink');
+      waLink.href = `https://wa.me/${wa}`;
+      waLink.textContent = `Hubungi Kami Via WhatsApp (${wa})`;
+
+      // Populasikan nilai ke input admin juga jika login
+      document.getElementById('admLokasiInput').value = lokasi;
+      document.getElementById('admWaInput').value = wa;
 
       // Display Notice
       const noticeText = dbData.pengumuman || "";
@@ -377,7 +403,7 @@
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-    // AUTHENTICATION
+    // AUTH
     function loginWali() {
       const key = document.getElementById('selectMuridWali').value;
       const pin = document.getElementById('pinWali').value;
@@ -401,7 +427,7 @@
 
     function loginAdmin() {
       const pass = document.getElementById('passAdmin').value;
-      if (pass === "1234") { // Password Default Admin
+      if (pass === "1234") {
         isAdminLoggedIn = true;
         closeModal('modalAdmin');
         showView('admin');
@@ -417,7 +443,7 @@
       showToast("Keluar Admin");
     }
 
-    // RENDER WALI
+    // WALI VIEW
     function renderJurnalWali(key) {
       const m = dbData.murid[key];
       if (!m) return;
@@ -457,9 +483,8 @@
       }
     }
 
-    // RENDER ADMIN TABLES
+    // ADMIN TABLES
     function renderAdminTables() {
-      // Table Murid
       const tblM = document.getElementById('tblMuridBody');
       tblM.innerHTML = '';
       for (let k in dbData.murid) {
@@ -479,7 +504,6 @@
         tblM.appendChild(tr);
       }
 
-      // Table Histori Presensi
       const tblH = document.getElementById('tblHistoriBody');
       tblH.innerHTML = '';
       const listH = [...(dbData.presensi || [])].reverse();
@@ -501,6 +525,22 @@
     }
 
     // ADMIN ACTIONS
+    async function simpanProfilAdmin() {
+      const lokasi = document.getElementById('admLokasiInput').value;
+      const wa = document.getElementById('admWaInput').value;
+      
+      showToast("Menyimpan Alamat & WA...");
+      await fetch(API_URL, { 
+        method: 'POST', 
+        body: JSON.stringify({ action: 'simpanProfil', lokasi: lokasi, wa: wa }) 
+      });
+      
+      dbData.lokasi = lokasi;
+      dbData.wa = wa;
+      renderPublic();
+      showToast("Alamat & WA Berhasil Diperbarui!");
+    }
+
     async function simpanPengumumanAdmin() {
       const teks = document.getElementById('admPengumumanInput').value;
       showToast("Menerbitkan pengumuman...");
@@ -607,7 +647,6 @@
       loadData();
     }
 
-    // UTILITIES
     function previewImage(input) {
       if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -619,21 +658,6 @@
         };
         reader.readAsDataURL(input.files[0]);
       }
-    }
-
-    const dictionary = { "kucing":"Cat 🐱", "buku":"Book 📖", "rumah":"House 🏠", "pensil":"Pencil ✏️" };
-    function cariKamus(){
-      const val = document.getElementById('searchKamus').value.toLowerCase().trim();
-      const res = document.getElementById('kamusResult');
-      if(!val) return res.innerHTML="💡 Ketik kata di atas untuk mencari.";
-      res.innerHTML = dictionary[val] ? `Terjemahan: <b style="color:green;">${dictionary[val]}</b>` : "❌ Kata tidak ditemukan.";
-    }
-
-    function cekJawaban(){
-      const val = parseInt(document.getElementById('jawabGame').value);
-      const res = document.getElementById('gameResult');
-      if(val === 8) res.innerHTML="<span style='color:green;'>🎉 Benar Tepat!</span>";
-      else res.innerHTML="<span style='color:red;'>❌ Coba lagi!</span>";
     }
 
     function showToast(msg){
@@ -649,7 +673,7 @@
       type: 'bar',
       data: {
         labels: ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'],
-        datasets: [{ label: 'Total Sesi', data: [12, 19, 15, 22], backgroundColor: '#10b981', borderRadius: 6 }]
+        datasets: [{ label: 'Total Sesi', data: [12, 19, 15, 22], backgroundColor: '#2d5a27', borderRadius: 6 }]
       },
       options: { responsive: true, plugins: { legend: { display: false } } }
     });
